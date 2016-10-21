@@ -1,4 +1,4 @@
-# groceryquest
+# groceryQuest
 
 ## description
 
