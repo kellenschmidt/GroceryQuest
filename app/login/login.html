@@ -1,0 +1,51 @@
+<!-- <div class="login jumbotron center-block">
+  <h1>Login</h1>
+  <form role="form" (submit)="login($event, username.value, password.value)">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" #username class="form-control" id="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" #password class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+    <a [routerLink]="['/signup']">Click here to Signup</a>
+</form>
+</div> -->
+<body>
+    <form role="form" (submit)="login($event, username.value, password.value)">
+        <div class="container">
+            <div class="col-md-10 cold-md-offset-1 text-center">
+                <div class="row">
+                    <img id="signup_logo" src="images/login-cart.png" class="header-logo" width="28" height="38">
+
+                </div>
+                <br /><br /><br />
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="text" #username class="form-control input-lg" id="username" placeholder="GroceryQuest Username">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="password" #password class="form-control input-lg" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+              <button type="submit" class="btn btn-lg btn-default login-button">Log In</button>
+              <br /><br />
+               <a [routerLink]="['/signup']">Click here to Signup</a>
+
+            </div>
+            <hr />
+        </div>
+    </form>
+
+</body>

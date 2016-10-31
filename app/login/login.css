@@ -1,0 +1,41 @@
+#username:focus, #password:focus {
+    border-color: #21ce99;
+
+}
+#username, #password {
+    width: 100%;
+    align-items: center;
+}
+
+
+.btn-lg {
+    border-radius: 8px;
+    font-size: 18px;
+    height: 46px;
+    padding-top: 11px;
+}
+
+.btn-default {
+    color: #fff;
+    background-color: #21ce99;
+    border-color: #21ce99;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    color: #fff;
+    background-color: #1aa278;
+    border-color: #199972;
+}
+
+body {
+    padding: 30px;
+    font-family: "DIN Web", "Hiragino Sans GB", STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
+        font-size: 15px;
+        line-height: 1.33333333;
+        color: #040d14;
+}
+
+.login-button {
+    max-width: 100%;
+    width: 300px;
+}

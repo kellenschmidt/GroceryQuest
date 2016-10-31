@@ -12,12 +12,17 @@ const core_1 = require('@angular/core');
 const platform_browser_1 = require('@angular/platform-browser');
 const forms_1 = require('@angular/forms');
 const router_1 = require('@angular/router');
+const http_1 = require('@angular/http');
 const app_component_1 = require('./app.component');
 const lists_service_1 = require('./lists.service');
 const landing_component_1 = require('./landing/landing.component');
 const lists_component_1 = require('./lists/lists.component');
 const list_editor_component_1 = require('./list-editor/list-editor.component');
 const item_editor_component_1 = require('./item-editor/item-editor.component');
+const login_component_1 = require('./login/login.component');
+const signup_component_1 = require('./signup/signup.component');
+const profile_component_1 = require('./profile/profile.component');
+const profile_service_1 = require('./profile.service');
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,17 +34,24 @@ AppModule = __decorate([
                 { path: '', component: landing_component_1.LandingComponent },
                 { path: 'lists', component: lists_component_1.ListsComponent },
                 { path: 'lists/new', component: list_editor_component_1.ListEditorComponent },
-                { path: 'lists/:list_id', component: list_editor_component_1.ListEditorComponent }
-            ])
+                { path: 'lists/:list_id', component: list_editor_component_1.ListEditorComponent },
+                { path: 'login', component: login_component_1.LoginComponent },
+                { path: 'signup', component: signup_component_1.SignupComponent },
+                { path: 'profile/:user_id', component: profile_component_1.ProfileComponent },
+            ]),
+            http_1.HttpModule
         ],
         declarations: [
             app_component_1.AppComponent,
             landing_component_1.LandingComponent,
             lists_component_1.ListsComponent,
             list_editor_component_1.ListEditorComponent,
-            item_editor_component_1.ItemEditorComponent
+            item_editor_component_1.ItemEditorComponent,
+            login_component_1.LoginComponent,
+            signup_component_1.SignupComponent,
+            profile_component_1.ProfileComponent
         ],
-        providers: [lists_service_1.ListsService],
+        providers: [lists_service_1.ListsService, profile_service_1.ProfileService],
         bootstrap: [app_component_1.AppComponent]
     }), 
     __metadata('design:paramtypes', [])
