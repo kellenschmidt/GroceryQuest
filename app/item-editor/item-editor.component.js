@@ -9,17 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-let AppComponent = class AppComponent {
+let ItemEditorComponent = class ItemEditorComponent {
     constructor() {
+        this.placeholder = "Item name...";
+        this._itemEntry = {};
+    }
+    addItem() {
+        this.model.push(this._itemEntry);
+        this._itemEntry = {};
     }
 };
-AppComponent = __decorate([
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Array)
+], ItemEditorComponent.prototype, "model", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', String)
+], ItemEditorComponent.prototype, "placeholder", void 0);
+ItemEditorComponent = __decorate([
     core_1.Component({
-        selector: 'app',
-        templateUrl: './app/app.html',
-        styleUrls: ['./app/app.css'],
+        selector: 'item-editor',
+        templateUrl: './app/item-editor/item-editor.html',
+        styleUrls: ['./app/item-editor/item-editor.css']
     }), 
     __metadata('design:paramtypes', [])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], ItemEditorComponent);
+exports.ItemEditorComponent = ItemEditorComponent;
+//# sourceMappingURL=item-editor.component.js.map

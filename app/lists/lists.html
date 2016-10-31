@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+   <li>
+      <a routerLink="/">
+      <span class="glyphicon glyphicon-home"></span>
+      </a>
+   </li>
+   <li class="active">
+      Lists
+   </li>
+</ol>
+<ul class="list-group">
+	<li *ngFor="let list of lists"
+		class="list-group-item">
+		<a [routerLink]="list.list_id">
+			{{ list.store_name }}
+		</a>
+        <span class="badge">
+           {{ list.items.length }}
+        </span>
+	</li>
+	<li class="list-group-item">
+		<a routerLink="new" class="text-success">
+			New List...
+		</a>
+	</li>
+</ul>

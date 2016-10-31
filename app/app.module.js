@@ -10,13 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const platform_browser_1 = require('@angular/platform-browser');
+const forms_1 = require('@angular/forms');
+const router_1 = require('@angular/router');
 const app_component_1 = require('./app.component');
+const lists_service_1 = require('./lists.service');
+const landing_component_1 = require('./landing/landing.component');
+const lists_component_1 = require('./lists/lists.component');
+const list_editor_component_1 = require('./list-editor/list-editor.component');
+const item_editor_component_1 = require('./item-editor/item-editor.component');
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule],
-        declarations: [app_component_1.AppComponent],
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            router_1.RouterModule.forRoot([
+                { path: '', component: landing_component_1.LandingComponent },
+                { path: 'lists', component: lists_component_1.ListsComponent },
+                { path: 'lists/new', component: list_editor_component_1.ListEditorComponent },
+                { path: 'lists/:list_id', component: list_editor_component_1.ListEditorComponent }
+            ])
+        ],
+        declarations: [
+            app_component_1.AppComponent,
+            landing_component_1.LandingComponent,
+            lists_component_1.ListsComponent,
+            list_editor_component_1.ListEditorComponent,
+            item_editor_component_1.ItemEditorComponent
+        ],
+        providers: [lists_service_1.ListsService],
         bootstrap: [app_component_1.AppComponent]
     }), 
     __metadata('design:paramtypes', [])

@@ -9,17 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-let AppComponent = class AppComponent {
-    constructor() {
+const lists_service_1 = require('./../lists.service');
+let ListsComponent = class ListsComponent {
+    constructor(listsService) {
+        this.listsService = listsService;
+        this.lists = listsService.getLists();
     }
 };
-AppComponent = __decorate([
+ListsComponent = __decorate([
     core_1.Component({
-        selector: 'app',
-        templateUrl: './app/app.html',
-        styleUrls: ['./app/app.css'],
+        selector: 'lists',
+        templateUrl: './app/lists/lists.html',
+        styleUrls: ['./app/lists/lists.css']
     }), 
-    __metadata('design:paramtypes', [])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+    __metadata('design:paramtypes', [lists_service_1.ListsService])
+], ListsComponent);
+exports.ListsComponent = ListsComponent;
+//# sourceMappingURL=lists.component.js.map

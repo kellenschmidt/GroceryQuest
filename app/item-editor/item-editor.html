@@ -1,0 +1,27 @@
+<ul class="list-group">
+   <li class="list-group-item list-group-item-info">
+      Items
+   </li>
+   <li  class="list-group-item"
+      *ngFor="let item of model">
+      {{ item.name }}
+      <span class="badge">
+         {{ item.price }}
+      </span>
+   </li>
+
+   <li class="list-group-item">
+      <div class="input-group">
+         <input class="form-control"
+            [placeholder]="placeholder"
+            [(ngModel)]="_itemEntry.name" />
+         <span class="input-group-btn">
+            <button class="btn btn-info"
+               (click)="addItem()"
+               [disabled]="!_itemEntry.name">
+               Add
+            </button>
+         </span>
+      </div>
+   </li>
+</ul>
