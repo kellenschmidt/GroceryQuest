@@ -41,4 +41,8 @@ export class ListEditorComponent {
 		this.listsService.saveList(this.list);
 		this.router.navigateByUrl('lists');
 	}
+
+    // getAutocomplete() {
+    //     this.listsService.getAutocomplete();
+    // }
 }

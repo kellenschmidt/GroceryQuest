@@ -9,8 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+const http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/toPromise');
 let ListsService = class ListsService {
-    constructor() {
+    constructor(http) {
+        this.http = http;
+        this.autocompleteUrl = "http://138.197.207.203/api/autocomplete/c";
         this.stores = [
             { "store_id": 1, "store_name": "Kroger on Mockingbird" },
             { "store_id": 2, "store_name": "Tom Thumb on Lovers" },
@@ -92,10 +97,22 @@ let ListsService = class ListsService {
     getAmountOfItems() {
         return this.lists.length;
     }
+    // getAutocomplete(): Promise<Test[]> {
+    // // getAutocomplete(): any {
+    // 	console.log(this.http.get(this.autocompleteUrl).toPromise().then(response => response.json()))
+    // 	return this.http.get(this.autocompleteUrl)
+    //            .toPromise()
+    //            .then(response => response.json().data as Test[]);
+    // }
+    extractData(res) {
+        let body = res.json();
+        console.log(body);
+        return body.data || {};
+    }
 };
 ListsService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [http_1.Http])
 ], ListsService);
 exports.ListsService = ListsService;
 //# sourceMappingURL=lists.service.js.map

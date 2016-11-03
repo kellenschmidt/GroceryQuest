@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+import { ProfileComponent } from './profile/profile.component';
 
 @Injectable()
 export class ProfileService {
 
-	profile : any;
+	private _profiles: any[];
 
 	constructor(){
 
-        this.profile = {
+        this._profiles = [];
+        this._profiles.push({
             "user_id": "asdf32543",
             "username": "andrewterra",
             "firstname": "Andrew",
@@ -68,17 +70,55 @@ export class ProfileService {
                     ]
                 }
             ],
-            "heatmap": [
-                [1, false],
-                [2, true],
-                [365, true]
-            ]
-        }
+            "heatmap": {
+                1: true,
+                2: true,
+                3: false,
+                4: true,
+                7: true,
+                8: true,
+                12: true,
+                13: true,
+                14: true,
+                21: true,
+                26: true,
+                35: true,
+                36: true,
+                37: true,
+                38: true,
+                43: true,
+                48: true,
+                49: true,
+                56: true,
+                57: true,
+                58: true,
+                68: true,
+                69: true,
+                70: true,
+                74: true,
+                75: true,
+                77: true,
+                80: true,
+                81: true,
+                86: true,
+                87: true,
+                365: false,
+            }
+        });
 
     }
+    
+    private getProfileIndex(user_id : string){
+		for (var i = this._profiles.length; i--;) {
+			var profile = this._profiles[i];
+			if(profile.user_id == user_id) return i;
+		}
+		return -1;
+	}
 
-    getProfile() : any {
-        return this.profile;
+    getProfile(user_id : string) : any {
+        var index = this.getProfileIndex(user_id);
+		return this._profiles[index];
     }
 
 }

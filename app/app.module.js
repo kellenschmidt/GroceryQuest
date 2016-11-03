@@ -38,6 +38,8 @@ AppModule = __decorate([
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'signup', component: signup_component_1.SignupComponent },
                 { path: 'profile/:user_id', component: profile_component_1.ProfileComponent },
+                { path: 'profile/:user_id/lists/new', component: list_editor_component_1.ListEditorComponent },
+                { path: 'profile/:user_id/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
             ]),
             http_1.HttpModule
         ],

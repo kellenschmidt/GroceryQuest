@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 let ProfileService = class ProfileService {
     constructor() {
-        this.profile = {
+        this._profiles = [];
+        this._profiles.push({
             "user_id": "asdf32543",
             "username": "andrewterra",
             "firstname": "Andrew",
@@ -72,15 +73,53 @@ let ProfileService = class ProfileService {
                     ]
                 }
             ],
-            "heatmap": [
-                [1, false],
-                [2, true],
-                [365, true]
-            ]
-        };
+            "heatmap": {
+                1: true,
+                2: true,
+                3: false,
+                4: true,
+                7: true,
+                8: true,
+                12: true,
+                13: true,
+                14: true,
+                21: true,
+                26: true,
+                35: true,
+                36: true,
+                37: true,
+                38: true,
+                43: true,
+                48: true,
+                49: true,
+                56: true,
+                57: true,
+                58: true,
+                68: true,
+                69: true,
+                70: true,
+                74: true,
+                75: true,
+                77: true,
+                80: true,
+                81: true,
+                86: true,
+                87: true,
+                365: false,
+            }
+        });
     }
-    getProfile() {
-        return this.profile;
+    getProfileIndex(user_id) {
+        for (var i = this._profiles.length; i--;) {
+            var profile = this._profiles[i];
+            if (profile.user_id == user_id)
+                return i;
+        }
+        return -1;
+    }
+    getProfile(user_id) {
+        var index = this.getProfileIndex(user_id);
+        return this._profiles[index];
     }
 };
 ProfileService = __decorate([

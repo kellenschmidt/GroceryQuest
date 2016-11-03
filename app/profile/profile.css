@@ -1,0 +1,19 @@
+small {
+    margin-left: 10px;
+}
+
+#your-account-dropdown {
+    float: right;
+}
+
+.list-group-title {
+    font-size: 22px;
+    margin-bottom: 0px;
+}
+
+.heat-square {
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    display: inline-block;
+}

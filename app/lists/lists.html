@@ -1,4 +1,4 @@
-<ol class="breadcrumb">
+<!-- <ol class="breadcrumb">
    <li>
       <a routerLink="/">
       <span class="glyphicon glyphicon-home"></span>
@@ -7,11 +7,14 @@
    <li class="active">
       Lists
    </li>
-</ol>
+</ol> -->
 <ul class="list-group">
+    <li class="list-group-item list-group-item-info">
+        <p class="list-group-title">Grocery Lists</p>
+    </li>
 	<li *ngFor="let list of lists"
 		class="list-group-item">
-		<a [routerLink]="list.list_id">
+		<a routerLink="lists/{{ list.list_id }}">
 			{{ list.store_name }}
 		</a>
         <span class="badge">
@@ -19,7 +22,7 @@
         </span>
 	</li>
 	<li class="list-group-item">
-		<a routerLink="new" class="text-success">
+		<a routerLink="lists/new" class="text-success">
 			New List...
 		</a>
 	</li>

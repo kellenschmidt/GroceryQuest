@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+
+import { Observable }     from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
+
+
 
 @Injectable()
 export class ListsService {
 
 	lists : any[];
 	stores: any[];
+	autocompleteUrl: string = "http://138.197.207.203/api/autocomplete/c"
+	test: any;
 
-	constructor(){
+	constructor(private http: Http){
 		this.stores = [
             { "store_id": 1, "store_name": "Kroger on Mockingbird"},
             { "store_id": 2, "store_name": "Tom Thumb on Lovers" },
@@ -95,5 +105,21 @@ export class ListsService {
 	getAmountOfItems() : number {
 		return this.lists.length;
 	}
+
+
+
+	// getAutocomplete(): Promise<Test[]> {
+	// // getAutocomplete(): any {
+	// 	console.log(this.http.get(this.autocompleteUrl).toPromise().then(response => response.json()))
+    // 	return this.http.get(this.autocompleteUrl)
+    //            .toPromise()
+    //            .then(response => response.json().data as Test[]);
+	// }
+
+	private extractData(res: Response) {
+	    let body = res.json();
+		console.log(body);
+	    return body.data || { };
+	  }
 
 }
