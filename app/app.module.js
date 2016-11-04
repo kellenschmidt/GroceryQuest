@@ -22,6 +22,7 @@ const item_editor_component_1 = require('./item-editor/item-editor.component');
 const login_component_1 = require('./login/login.component');
 const signup_component_1 = require('./signup/signup.component');
 const profile_component_1 = require('./profile/profile.component');
+const not_found_component_1 = require('./not-found/not-found.component');
 const profile_service_1 = require('./profile.service');
 let AppModule = class AppModule {
 };
@@ -40,6 +41,8 @@ AppModule = __decorate([
                 { path: 'profile/:user_id', component: profile_component_1.ProfileComponent },
                 { path: 'profile/:user_id/lists/new', component: list_editor_component_1.ListEditorComponent },
                 { path: 'profile/:user_id/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
+                { path: '/404', component: not_found_component_1.NotFoundComponent },
+                { path: '/*path', redirectTo: '404' }
             ]),
             http_1.HttpModule
         ],
@@ -51,7 +54,8 @@ AppModule = __decorate([
             item_editor_component_1.ItemEditorComponent,
             login_component_1.LoginComponent,
             signup_component_1.SignupComponent,
-            profile_component_1.ProfileComponent
+            profile_component_1.ProfileComponent,
+            not_found_component_1.NotFoundComponent
         ],
         providers: [lists_service_1.ListsService, profile_service_1.ProfileService],
         bootstrap: [app_component_1.AppComponent]
