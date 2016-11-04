@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { ListsService } from './../lists.service';
+import { ListsService } from './../services/lists.service';
+import { BroadcastService } from '../services/broadcast.service';
 
 @Component({
   selector: 'list-editor',
@@ -16,7 +17,8 @@ export class ListEditorComponent {
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
-				private listsService : ListsService ){}
+				private listsService : ListsService,
+				private broadcastService: BroadcastService ){}
 
 	ngOnInit() {
 		this.route.params.forEach((params: Params) => {
@@ -38,11 +40,8 @@ export class ListEditorComponent {
 	}
 
 	save() {
+		this.broadcastService.broadcast('saveGroceryList', this.list);
 		this.listsService.saveList(this.list);
 		this.router.navigateByUrl('lists');
 	}
-
-    // getAutocomplete() {
-    //     this.listsService.getAutocomplete();
-    // }
 }

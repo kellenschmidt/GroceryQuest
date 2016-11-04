@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { ListsService } from './../lists.service';
+import { ListsService } from './../services/lists.service';
 
 
 @Component({
-  selector: 'lists',
-  templateUrl: './app/lists/lists.html',
-  styleUrls: [ './app/lists/lists.css' ]
+	selector: 'lists',
+	templateUrl: './app/lists/lists.html',
+	styleUrls: ['./app/lists/lists.css']
 })
 
 export class ListsComponent {
 
-	lists : any[];
+	lists: any[];
 
-	constructor(private listsService : ListsService){
+	constructor(private listsService: ListsService) {
 		this.lists = listsService.getLists();
 	}
 

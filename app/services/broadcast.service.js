@@ -9,20 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const lists_service_1 = require('./../services/lists.service');
-let ListsComponent = class ListsComponent {
-    constructor(listsService) {
-        this.listsService = listsService;
-        this.lists = listsService.getLists();
+let BroadcastService = class BroadcastService {
+    constructor() {
+        this.subscriptions = {};
+    }
+    broadcast(eventName, args) {
+        var subscribers = this.subscriptions[eventName];
+        if (subscribers) {
+            for (var i = subscribers.length; i--;) {
+                subscribers[i](args);
+            }
+        }
+    }
+    subscribe(eventName, callBack) {
+        if (!this.subscriptions[eventName]) {
+            this.subscriptions[eventName] = [];
+        }
+        this.subscriptions[eventName].push(callBack);
     }
 };
-ListsComponent = __decorate([
-    core_1.Component({
-        selector: 'lists',
-        templateUrl: './app/lists/lists.html',
-        styleUrls: ['./app/lists/lists.css']
-    }), 
-    __metadata('design:paramtypes', [lists_service_1.ListsService])
-], ListsComponent);
-exports.ListsComponent = ListsComponent;
-//# sourceMappingURL=lists.component.js.map
+BroadcastService = __decorate([
+    core_1.Injectable(), 
+    __metadata('design:paramtypes', [])
+], BroadcastService);
+exports.BroadcastService = BroadcastService;
+//# sourceMappingURL=broadcast.service.js.map

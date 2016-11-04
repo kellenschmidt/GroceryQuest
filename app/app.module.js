@@ -14,7 +14,7 @@ const forms_1 = require('@angular/forms');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 const app_component_1 = require('./app.component');
-const lists_service_1 = require('./lists.service');
+const lists_service_1 = require('./services/lists.service');
 const landing_component_1 = require('./landing/landing.component');
 const lists_component_1 = require('./lists/lists.component');
 const list_editor_component_1 = require('./list-editor/list-editor.component');
@@ -22,8 +22,8 @@ const item_editor_component_1 = require('./item-editor/item-editor.component');
 const login_component_1 = require('./login/login.component');
 const signup_component_1 = require('./signup/signup.component');
 const profile_component_1 = require('./profile/profile.component');
-const not_found_component_1 = require('./not-found/not-found.component');
-const profile_service_1 = require('./profile.service');
+const profile_service_1 = require('./services/profile.service');
+const broadcast_service_1 = require('./services/broadcast.service');
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -41,8 +41,6 @@ AppModule = __decorate([
                 { path: 'profile/:user_id', component: profile_component_1.ProfileComponent },
                 { path: 'profile/:user_id/lists/new', component: list_editor_component_1.ListEditorComponent },
                 { path: 'profile/:user_id/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
-                { path: '/404', component: not_found_component_1.NotFoundComponent },
-                { path: '/*path', redirectTo: '404' }
             ]),
             http_1.HttpModule
         ],
@@ -54,10 +52,9 @@ AppModule = __decorate([
             item_editor_component_1.ItemEditorComponent,
             login_component_1.LoginComponent,
             signup_component_1.SignupComponent,
-            profile_component_1.ProfileComponent,
-            not_found_component_1.NotFoundComponent
+            profile_component_1.ProfileComponent
         ],
-        providers: [lists_service_1.ListsService, profile_service_1.ProfileService],
+        providers: [lists_service_1.ListsService, profile_service_1.ProfileService, broadcast_service_1.BroadcastService],
         bootstrap: [app_component_1.AppComponent]
     }), 
     __metadata('design:paramtypes', [])

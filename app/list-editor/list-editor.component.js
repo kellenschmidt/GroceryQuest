@@ -10,12 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-const lists_service_1 = require('./../lists.service');
+const lists_service_1 = require('./../services/lists.service');
+const broadcast_service_1 = require('../services/broadcast.service');
 let ListEditorComponent = class ListEditorComponent {
-    constructor(route, router, listsService) {
+    constructor(route, router, listsService, broadcastService) {
         this.route = route;
         this.router = router;
         this.listsService = listsService;
+        this.broadcastService = broadcastService;
     }
     ngOnInit() {
         this.route.params.forEach((params) => {
@@ -34,6 +36,7 @@ let ListEditorComponent = class ListEditorComponent {
         });
     }
     save() {
+        this.broadcastService.broadcast('saveGroceryList', this.list);
         this.listsService.saveList(this.list);
         this.router.navigateByUrl('lists');
     }
@@ -44,7 +47,7 @@ ListEditorComponent = __decorate([
         templateUrl: './app/list-editor/list-editor.html',
         styleUrls: ['./app/list-editor/list-editor.css']
     }), 
-    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, lists_service_1.ListsService])
+    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, lists_service_1.ListsService, broadcast_service_1.BroadcastService])
 ], ListEditorComponent);
 exports.ListEditorComponent = ListEditorComponent;
 //# sourceMappingURL=list-editor.component.js.map

@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 
 
 import { AppComponent }   from './app.component';
-import { ListsService } from './lists.service';
+import { ListsService } from './services/lists.service';
 import { LandingComponent }   from './landing/landing.component';
 import { ListsComponent }   from './lists/lists.component';
 import { ListEditorComponent } from './list-editor/list-editor.component';
@@ -14,10 +14,8 @@ import { ItemEditorComponent }   from './item-editor/item-editor.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-
-import { ProfileService } from './profile.service';
-
+import { ProfileService } from './services/profile.service';
+import { BroadcastService } from './services/broadcast.service';
 
 
 
@@ -28,15 +26,13 @@ import { ProfileService } from './profile.service';
   	RouterModule.forRoot([
   		{ path: '', component: LandingComponent },
   		{ path: 'lists', component: ListsComponent },
-        { path: 'lists/new', component: ListEditorComponent },
+      { path: 'lists/new', component: ListEditorComponent },
   		{ path: 'lists/:list_id', component: ListEditorComponent },
-        { path: 'login', component: LoginComponent },
-        { path: 'signup', component: SignupComponent },
-        { path: 'profile/:user_id', component: ProfileComponent},
-        { path: 'profile/:user_id/lists/new', component: ListEditorComponent},
-        { path: 'profile/:user_id/lists/:list_id', component: ListEditorComponent},
-        { path: '/404', component: NotFoundComponent},
-        { path: '/*path', redirectTo: '404' }
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignupComponent },
+      { path: 'profile/:user_id', component: ProfileComponent},
+      { path: 'profile/:user_id/lists/new', component: ListEditorComponent},
+      { path: 'profile/:user_id/lists/:list_id', component: ListEditorComponent},
 	]),
     HttpModule
   ],
@@ -48,10 +44,9 @@ import { ProfileService } from './profile.service';
     ItemEditorComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent,
-    NotFoundComponent
+    ProfileComponent
   ],
-  providers: [ ListsService, ProfileService ],
+  providers: [ ListsService, ProfileService, BroadcastService ],
   bootstrap:    [ AppComponent ]
 })
 
