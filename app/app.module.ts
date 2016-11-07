@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
-
 import { AppComponent }   from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { ListsService } from './services/lists.service';
 import { LandingComponent }   from './landing/landing.component';
 import { ListsComponent }   from './lists/lists.component';
@@ -17,23 +17,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { BroadcastService } from './services/broadcast.service';
 
-
-
 @NgModule({
   imports:      [
   	BrowserModule,
   	FormsModule,
-  	RouterModule.forRoot([
-  		{ path: '', component: LandingComponent },
-  		{ path: 'lists', component: ListsComponent },
-      { path: 'lists/new', component: ListEditorComponent },
-  		{ path: 'lists/:list_id', component: ListEditorComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'signup', component: SignupComponent },
-      { path: 'profile/:user_id', component: ProfileComponent},
-      { path: 'profile/:user_id/lists/new', component: ListEditorComponent},
-      { path: 'profile/:user_id/lists/:list_id', component: ListEditorComponent},
-	]),
+    AppRoutingModule,
     HttpModule
   ],
   declarations: [
@@ -47,7 +35,7 @@ import { BroadcastService } from './services/broadcast.service';
     ProfileComponent
   ],
   providers: [ ListsService, ProfileService, BroadcastService ],
-  bootstrap:    [ AppComponent ]
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }

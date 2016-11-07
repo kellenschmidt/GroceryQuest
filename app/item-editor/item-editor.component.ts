@@ -19,6 +19,7 @@ export class ItemEditorComponent {
 	}
 
 	addItem(){
+		this._itemEntry.list_id = this.model.length + 1;
 		this.model.push(this._itemEntry);
 		this._itemEntry = {};
 	}

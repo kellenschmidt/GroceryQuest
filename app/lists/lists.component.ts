@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ListsService } from './../services/lists.service';
+import { BroadcastService } from '../services/broadcast.service';
 
 
 @Component({
@@ -13,8 +14,15 @@ export class ListsComponent {
 
 	lists: any[];
 
-	constructor(private listsService: ListsService) {
+	constructor(private listsService: ListsService,
+		private broadcastService: BroadcastService) {
 		this.lists = listsService.getLists();
+	}
+
+	ngOnInit() {
+		this.broadcastService.subscribe('saveGroceryList', (updatedList) => {
+      		this.listsService.saveList(updatedList);
+    	});
 	}
 
 }
