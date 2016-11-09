@@ -1,9 +1,15 @@
 <ul class="list-group">
    <li class="list-group-item list-group-item-info">
-      Items
+      <p id="list-title">Items</p>
+      <span class="glyphicon glyphicon-sort-by-alphabet pull-right"
+            (click)="sortItems()"></span>
    </li>
    <li  class="list-group-item"
-      *ngFor="let item of model">
+      *ngFor="let item of model; let i=index">
+      <span class="glyphicon glyphicon-arrow-up"
+            (click)="swapItems(i - 1, i)"></span>
+      <span class="glyphicon glyphicon-arrow-down"
+            (click)="swapItems(i, i + 1)"></span>
       {{ item.name }}
       <span class="badge">
          {{ item.price }}
