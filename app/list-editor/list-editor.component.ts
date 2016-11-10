@@ -46,4 +46,26 @@ export class ListEditorComponent {
 		this.listsService.saveList(this.list);
 		this.router.navigate(['../../'], { relativeTo: this.route });
 	}
+
+	// Analyzes two list item arrays comparing item names for equivalence
+	listsEqual(array1: any[], array2: any[]): boolean {
+		if(array1.length !== array2.length)
+			return false;
+		for(let i=0; i<array1.length; i++) {
+			if(array1[i].name !== array2[i].name)
+				return false;
+		}
+		return true;
+	}
+
+	canDeactivate(): Promise<boolean> | boolean {
+		// Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+		if (!this.list || this.listsEqual(this.list.items, this.newListItems)) {
+			return true;
+		}
+		// Otherwise ask the user with the dialog service and return its
+		// promise which resolves to true or false when the user decides
+		return confirm('Discard changes?');
+	}
+
 }

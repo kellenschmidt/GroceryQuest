@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Http } from '@angular/http';
+import { ListsService } from '../services/lists.service';
+
 
 @Component({
 	selector: 'item-editor',
@@ -9,11 +12,14 @@ import { Component, Input } from '@angular/core';
 export class ItemEditorComponent {
 
 	@Input() model: any[];
-	@Input() placeholder: string;
 
 	_itemEntry: any;
+	placeholder: string;
+	autocomplete : any[];
+    autocompleteUrl: string = "http://138.197.207.203/api/autocomplete/";
 
-	constructor() {
+	constructor(private listsService : ListsService, 
+				private http: Http) {
 		this.placeholder = "Item name...";
 		this._itemEntry = {};
 	}
@@ -22,6 +28,10 @@ export class ItemEditorComponent {
 		this._itemEntry.list_id = this.model.length + 1;
 		this.model.push(this._itemEntry);
 		this._itemEntry = {};
+	}
+
+	removeItem(index: number) {
+		this.model.splice(index, 1);
 	}
 
 	swapItems(index1: number, index2: number) {
@@ -48,5 +58,12 @@ export class ItemEditorComponent {
 				return 0;
 		});
 	}
+
+	autoComplete(event) {
+        if(event.target.value !== "" && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
+            this.listsService.getAutocomplete(event.target.value).then(x => this.autocomplete = x);;
+            // console.log(this.autocomplete)
+        }
+    }
 
 }

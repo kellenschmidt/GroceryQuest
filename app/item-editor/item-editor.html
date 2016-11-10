@@ -4,16 +4,18 @@
       <span class="glyphicon glyphicon-sort-by-alphabet pull-right"
             (click)="sortItems()"></span>
    </li>
-   <li  class="list-group-item"
+   <li class="list-group-item"
       *ngFor="let item of model; let i=index">
-      <span class="glyphicon glyphicon-arrow-up"
-            (click)="swapItems(i - 1, i)"></span>
-      <span class="glyphicon glyphicon-arrow-down"
-            (click)="swapItems(i, i + 1)"></span>
-      {{ item.name }}
-      <span class="badge">
-         {{ item.price }}
-      </span>
+            <span class="glyphicon glyphicon-remove"
+                  (click)="removeItem(i)"></span>
+            <span class="glyphicon glyphicon-menu-up"
+                  (click)="swapItems(i - 1, i)"></span>
+            <span class="glyphicon glyphicon-menu-down"
+                  (click)="swapItems(i, i + 1)"></span>
+            {{ item.name }}
+            <span class="badge">
+            {{ item.price }}
+            </span>
    </li>
 
    <li class="list-group-item">

@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class ProfileService {
 
 	private _profiles: any[];
+    _apiUrl: string;
 
-	constructor(){
+	constructor(private http: Http){
+        this._apiUrl = "http://138.197.207.203/api";
 
         this._profiles = [];
+
+        //this.getProfileHttp('1').then(x => this._profiles.push(x));
+
         this._profiles.push({
             "user_id": "asdf32543",
             "username": "andrewterra",
@@ -72,6 +78,12 @@ export class ProfileService {
     updateList(user_id: string, list_id: number) {
         let profileIndexToUpdate: number = this.getProfileIndex(user_id);
         let listToUpdate: number = this._profiles[profileIndexToUpdate].lists[list_id]
+    }
+
+    getProfileHttp(data: string): Promise<any[]>  {
+        return this.http.get(this._apiUrl + '/profile/' + data)
+		.toPromise()
+		.then(x => x.json() as any[]);
     }
 
 }

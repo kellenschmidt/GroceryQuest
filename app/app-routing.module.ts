@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CanDeactivateGuard } from './services/can-deactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
         ]},*/
         { path: 'profile/:user_id', component: ProfileComponent },
         { path: 'profile/:user_id/lists/new', component: ListEditorComponent },
-        { path: 'profile/:user_id/lists/:list_id', component: ListEditorComponent },
+        { path: 'profile/:user_id/lists/:list_id', 
+          component: ListEditorComponent, 
+          canDeactivate: [CanDeactivateGuard] },
         { path: '**', component: NotFoundComponent},
 	]),
   ],

@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { BroadcastService } from './services/broadcast.service';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CanDeactivateGuard } from './services/can-deactivate-guard.service';
 
 @NgModule({
   imports:      [
@@ -36,7 +37,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ProfileComponent,
     NotFoundComponent,
   ],
-  providers: [ ListsService, ProfileService, BroadcastService ],
+  providers: [ ListsService, ProfileService, BroadcastService, CanDeactivateGuard, ],
   bootstrap: [ AppComponent ]
 })
 
