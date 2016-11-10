@@ -1,6 +1,7 @@
-.mobile {
-	font-weight: bold;
-	color: green;
+#list-title {
+	display: inline-block;
+	margin-bottom: 0px;
+	font-size: 14px;
 }
 
 .btn.dropdown-toggle {

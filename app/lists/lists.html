@@ -1,29 +1,21 @@
-<!-- <ol class="breadcrumb">
-   <li>
-      <a routerLink="/">
-      <span class="glyphicon glyphicon-home"></span>
-      </a>
-   </li>
-   <li class="active">
-      Lists
-   </li>
-</ol> -->
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
         <p class="list-group-title">Grocery Lists</p>
     </li>
-	<li *ngFor="let list of lists"
-		class="list-group-item">
-		<a routerLink="lists/{{ list.list_id }}">
+    <li *ngFor="let list of lists" class="list-group-item">
+        <a routerLink="lists/{{ list.list_id }}">
 			{{ list.store_name }}
 		</a>
         <span class="badge">
            {{ list.items.length }}
         </span>
-	</li>
-	<li class="list-group-item">
-		<a routerLink="lists/new" class="text-success">
+    </li>
+    <li class="list-group-item">
+        <a routerLink="lists/new" class="text-success">
 			New List...
 		</a>
-	</li>
+    </li>
 </ul>
+<div>
+    <pre> {{ lists|json}} </pre>
+</div>

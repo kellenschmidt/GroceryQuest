@@ -15,11 +15,18 @@ let LoginComponent = class LoginComponent {
     constructor(router, http) {
         this.router = router;
         this.http = http;
+        this._apiUrl = "http://138.197.207.203/api";
     }
     login(event, username, password) {
-        event.preventDefault();
-        let body = JSON.stringify({ username, password });
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        let options = new http_1.RequestOptions({ headers: headers });
+        // event.preventDefault();
+        // let body = JSON.stringify({ username, password });
+        // console.log(body)
+        let body = { username: username, password: password };
         console.log(body);
+        // this.http.post(this._apiUrl + '/login', body, options)
+        // .toPromise().then(() => account)
         // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
     }
 };

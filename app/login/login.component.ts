@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
 
@@ -12,12 +12,22 @@ import { contentHeaders } from '../common/headers';
 
 export class LoginComponent {
 
+    _apiUrl: string = "http://138.197.207.203/api"
+
+
     constructor(public router: Router, public http: Http) {}
 
     login(event, username, password) {
-        event.preventDefault();
-        let body = JSON.stringify({ username, password });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        // event.preventDefault();
+        // let body = JSON.stringify({ username, password });
+        // console.log(body)
+        let body = {username: username, password: password}
         console.log(body)
+        // this.http.post(this._apiUrl + '/login', body, options)
+            // .toPromise().then(() => account)
         // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
     }
 

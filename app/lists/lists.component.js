@@ -9,11 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const lists_service_1 = require('./../lists.service');
+const lists_service_1 = require('./../services/lists.service');
+const broadcast_service_1 = require('../services/broadcast.service');
 let ListsComponent = class ListsComponent {
-    constructor(listsService) {
+    constructor(listsService, broadcastService) {
         this.listsService = listsService;
+        this.broadcastService = broadcastService;
         this.lists = listsService.getLists();
+    }
+    ngOnInit() {
+        this.broadcastService.subscribe('saveGroceryList', (updatedList) => {
+            this.listsService.saveList(updatedList);
+        });
     }
 };
 ListsComponent = __decorate([
@@ -22,7 +29,7 @@ ListsComponent = __decorate([
         templateUrl: './app/lists/lists.html',
         styleUrls: ['./app/lists/lists.css']
     }), 
-    __metadata('design:paramtypes', [lists_service_1.ListsService])
+    __metadata('design:paramtypes', [lists_service_1.ListsService, broadcast_service_1.BroadcastService])
 ], ListsComponent);
 exports.ListsComponent = ListsComponent;
 //# sourceMappingURL=lists.component.js.map

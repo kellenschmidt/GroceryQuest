@@ -1,29 +1,29 @@
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-const core_1 = require('@angular/core');
-const http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/toPromise');
-let ListsService = class ListsService {
-    constructor(http) {
-        this.http = http;
-        this.autocompleteUrl = "http://138.197.207.203/api/autocomplete/c";
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+
+
+import 'rxjs/add/operator/toPromise';
+
+@Injectable()
+export class ListsService {
+
+    lists: any[];
+    stores: any[];
+    _apiUrl: string = "http://138.197.207.203/api"
+
+
+    constructor(private http: Http) {
         this.stores = [
             { "store_id": 1, "store_name": "Kroger on Mockingbird" },
             { "store_id": 2, "store_name": "Tom Thumb on Lovers" },
             { "store_id": 3, "store_name": "Central Market on Lovers" },
-            { "store_id": 4, "store_name": "Whole Foods on Greenback" },
+            { "store_id": 4, "store_name": "Whole Foods on Greenville" },
+
         ];
+
         this.lists = [
             {
+                "user_id": "asdf32543",
                 "list_id": 1,
                 "store_id": 1,
                 "store_name": "Kroger on Mockingbird",
@@ -79,40 +79,36 @@ let ListsService = class ListsService {
             }
         ];
     }
-    getLists() {
+
+    getLists(): any[] {
         return this.lists;
     }
-    getList(list_id) {
+
+    getList(list_id: number): any {
         return this.lists[list_id - 1];
     }
-    getStores() {
+
+    getStores(): any {
         return this.stores;
     }
     saveList(list) {
         if (list.list_id === undefined) {
             list.list_id = this.lists.length + 1;
         }
+
         this.lists[list.list_id - 1] = list;
     }
-    getAmountOfItems() {
+
+    getAmountOfItems(): number {
         return this.lists.length;
     }
-    // getAutocomplete(): Promise<Test[]> {
-    // // getAutocomplete(): any {
-    // 	console.log(this.http.get(this.autocompleteUrl).toPromise().then(response => response.json()))
-    // 	return this.http.get(this.autocompleteUrl)
-    //            .toPromise()
-    //            .then(response => response.json().data as Test[]);
-    // }
-    extractData(res) {
-        let body = res.json();
-        console.log(body);
-        return body.data || {};
-    }
-};
-ListsService = __decorate([
-    core_1.Injectable(), 
-    __metadata('design:paramtypes', [http_1.Http])
-], ListsService);
-exports.ListsService = ListsService;
-//# sourceMappingURL=lists.service.js.map
+
+    getAutocomplete(data): Promise<any[]>  {
+        return this.http.get(this._apiUrl + '/autocomplete/' + data)
+		.toPromise()
+		.then(x => x.json() as any[]);
+
+
+	}
+
+}
