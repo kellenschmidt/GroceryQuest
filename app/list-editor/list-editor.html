@@ -1,65 +1,64 @@
 <div class="container">
-   <ol class="breadcrumb">
-      <li>
-         <a routerLink="/">
-            <span class="glyphicon glyphicon-home"></span>
-         </a>
-      </li>
-      <li>
-         <a routerLink="/lists">
+  <ol class="breadcrumb">
+    <li>
+      <a routerLink="/">
+        <span class="glyphicon glyphicon-home"></span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/lists">
             Lists
          </a>
-      </li>
-      <li class="active">
-         {{ title }}
-      </li>
-   </ol>
-   <div class="row">
-      <div class="col-md-7">
-         <div class="panel panel-info">
-            <div class="panel-heading">
-               List information
-            </div>
-            <div class="panel-body">
-               <!-- <div class="form-group">
-                  <label for="store_name">
-                     Name
-                  </label>
-                  <input  id="store_name"
-                     class="form-control"
-                     [(ngModel)]="list.store_name" />
-               </div> -->
-               <div class="form-group">
-                  <label for="store_id">
-                     Store
-                  </label>
-                  <select id="store_id"
-                     class="form-control"
-                     [(ngModel)]="list.store_name">
-                     <option></option>
-                     <option *ngFor="let store of stores"
-                        [value]="store.store_name">
-                        {{ store.store_name }}
-                     </option>
-                  </select>
-               </div>
-            </div>
-         </div>
+    </li>
+    <li class="active">
+      {{ title }}
+    </li>
+  </ol>
+  <div class="row">
+    <div class="col-md-7">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          List information
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="store_id">
+              Store
+            </label>
+            <select id="store_id" class="form-control" [(ngModel)]="list.store">
+              <option></option>
+              <option *ngFor="let store of stores"
+                [value]="store.store">
+                {{ store.store }}
+              </option>
+            </select>
+            <pre> {{ list.store|json}} </pre>
+          </div>
+          <div>
+            <label for="peak-hours">
+              Peak hours
+            </label>
+            <br>
+            <div class="hour-column" *ngFor="let column of store.business" [ngStyle]="{height: getColumnHeight(column[1])}"></div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-5">
-         <item-editor [model]="newListItems">
+    </div>
+    <div class="col-md-5">
+      <item-editor [model]="newListItems">
 
-        </item-editor>
-      </div>
-      <div class="col-md-12">
-         <a class="btn btn-primary btn-block btn-lg"
-            (click)="save()">
+      </item-editor>
+    </div>
+    <div class="col-md-12">
+      <a class="btn btn-primary btn-block btn-lg" (click)="save()">
             Save
          </a>
-         <a class="btn btn-default btn-block btn-lg"
-            routerLink="../../">
+      <a class="btn btn-danger btn-block btn-lg" (click)="delete()">
+            Delete
+         </a>
+      <a class="btn btn-default btn-block btn-lg" routerLink="../../">
             Return to Lists
          </a>
-      </div>
-   </div>
+    </div>
+  </div>
 </div>

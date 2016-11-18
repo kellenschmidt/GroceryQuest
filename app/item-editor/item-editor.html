@@ -1,8 +1,10 @@
 <ul class="list-group">
    <li class="list-group-item list-group-item-info">
       <p id="list-title">Items</p>
+      <span class="glyphicon glyphicon-sort-by-attributes pull-right"
+            (click)="sortByAisle()"></span>
       <span class="glyphicon glyphicon-sort-by-alphabet pull-right"
-            (click)="sortItems()"></span>
+            (click)="sortByName()"></span>
    </li>
    <li class="list-group-item"
       *ngFor="let item of model; let i=index">

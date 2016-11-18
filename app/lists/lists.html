@@ -4,7 +4,7 @@
     </li>
     <li *ngFor="let list of lists" class="list-group-item">
         <a routerLink="lists/{{ list.list_id }}">
-			{{ list.store_name }}
+			{{ list.store }}
 		</a>
         <span class="badge">
            {{ list.items.length }}

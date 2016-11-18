@@ -48,11 +48,22 @@ export class ItemEditorComponent {
 	}
 
 	// Sort json item objects by name using custom compare function
-	sortItems() {
+	sortByName() {
 		this.model.sort(function(a: any, b: any):number {
 			if(a.name < b.name)
 				return -1;
 			else if (a.name > b.name)
+				return 1;
+			else
+				return 0;
+		});
+	}
+
+	sortByAisle() {
+		this.model.sort(function(a: any, b: any):number {
+			if(a.aisle_num < b.aisle_num)
+				return -1;
+			else if (a.aisle_num > b.aisle_num)
 				return 1;
 			else
 				return 0;

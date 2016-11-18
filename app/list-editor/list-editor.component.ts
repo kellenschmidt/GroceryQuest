@@ -14,7 +14,8 @@ export class ListEditorComponent {
 	list: any;
 	newListItems: any[];
 	stores: any[];
-    amount_of_items: number;
+	store: any;
+	maxBusiness: number = 0	;
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
@@ -29,13 +30,17 @@ export class ListEditorComponent {
 			if(params['list_id'] !== undefined) {
 				this.list = this.listsService.getList(+params['list_id']);
                 this.newListItems = this.list.items.slice();
-				this.title = this.list.store_name.toString();
+				this.store = this.getStore(this.list.store_id);
+				this.title = this.store.store;
+				this.setMaxBusiness();
 			} else {
 				this.list = {
 					items: []
 				};
 				this.newListItems = [];
+				this.store = {};
 				this.title = 'New List';
+				this.maxBusiness = 0;
 			}
 		});
 	}
@@ -44,6 +49,11 @@ export class ListEditorComponent {
 		this.list.items = this.newListItems.slice();
 		this.broadcastService.broadcast('saveGroceryList', this.list);
 		this.listsService.saveList(this.list);
+		this.router.navigate(['../../'], { relativeTo: this.route });
+	}
+
+	delete() {
+		this.listsService.deleteList(this.list);
 		this.router.navigate(['../../'], { relativeTo: this.route });
 	}
 
@@ -56,6 +66,26 @@ export class ListEditorComponent {
 				return false;
 		}
 		return true;
+	}
+
+	getStore(store_id: number) {
+		for(let i=0; i<this.stores.length; i++) {
+			if(this.stores[i].store_id === store_id) {
+				return this.stores[i];
+			}
+		}
+	}
+
+	getColumnHeight(height: any): number {
+		return (height/this.maxBusiness)*50;
+	}
+
+	setMaxBusiness() {
+		for(let i=0; i<this.store.business.length; i++) {
+			if(this.store.business[i][1] > this.maxBusiness) {
+				this.maxBusiness = this.store.business[i][1];
+			}
+		}
 	}
 
 	canDeactivate(): Promise<boolean> | boolean {

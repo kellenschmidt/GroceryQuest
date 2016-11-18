@@ -1,43 +1,43 @@
-<ol class="breadcrumb">
-   <li>
-      <a routerLink="/">
-      <span class="glyphicon glyphicon-home"></span>
-      </a>
-   </li>
-   <li class="active">
-      Profile
-   </li>
-</ol>
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <a routerLink="/">
+                <span class="glyphicon glyphicon-home"></span>
+            </a>
+        </li>
+        <li class="active">
+            Profile
+        </li>
+    </ol>
 
-<div class="dropdown" id="your-account-dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <div class="dropdown" id="your-account-dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="true">
     Your Account
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a>Edit profile</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a>Log Out</a></li>
-  </ul>
-</div>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a>Edit profile</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a>Log Out</a></li>
+        </ul>
+    </div>
 
-<div class="page-header">
-    <h1>{{ profile.firstname }} {{ profile.lastname }}<small>{{ profile.username }}</small></h1>
-</div>
+    <div class="page-header">
+        <h1>{{ profile.firstname }} {{ profile.lastname }}<small>{{ profile.username }}</small></h1>
+    </div>
 
-<lists></lists>
+    <lists></lists>
 
-<ul class="list-group">
-    <li class="list-group-item list-group-item-info">
-        <p class="list-group-title">Heatmap</p>
-    </li>
-    <li class="list-group-item">
-		<div id="heatmap">
-            <div *ngFor="let day of days"
-                [ngStyle]="{'background-color': setHeatSquareStyle(day)}"
-                class="heat-square" >
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <p class="list-group-title">Heatmap</p>
+        </li>
+        <li class="list-group-item">
+            <div id="heatmap">
+                <div *ngFor="let day of days" [ngStyle]="{'background-color': setHeatSquareStyle(day)}" class="heat-square">
+                </div>
             </div>
-        </div>
-	</li>
-</ul>
-
+        </li>
+    </ul>
+</div>
