@@ -11,7 +11,7 @@
     </ol>
 
     <div class="dropdown" id="your-account-dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
         Your Account
         <span class="caret"></span>
       </button>
@@ -24,7 +24,7 @@
 
 
     <div class="page-header">
-        <h1>{{ profile.firstname }} {{ profile.lastname }}<small>{{ profile.username }}</small></h1>
+        <h1>{{ profile.first_name }} {{ profile.last_name }}<small>{{ profile.email }}</small></h1>
     </div>
 
 
@@ -37,10 +37,10 @@
         </li>
         <li class="list-group-item">
             <div id="heatmap">
-                <div *ngFor="let day of days"
+                <!-- <div *ngFor="let day of days"
                     [ngStyle]="{'background-color': setHeatSquareStyle(day)}"
                     class="heat-square" >
-                </div>
+                </div> -->
             </div>
         </li>
     </ul>

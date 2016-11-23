@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { contentHeaders } from '../common/headers';
+import { Router } from '@angular/router';
+
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ProfileService {
 
 	private _profiles: any[];
+	_apiUrl: string = "http://138.197.207.203/api"
+	response : any;
 
-	constructor(){
+
+	constructor(private http: Http, public router: Router){
 
         this._profiles = [];
         this._profiles.push({
@@ -59,6 +67,19 @@ export class ProfileService {
         });
 
     }
+
+	createAuthorizationHeader(headers:Headers, token) {
+        headers.append('Authorization', 'Basic ' +
+        btoa(`${token}:`));
+    }
+
+	getProfileAPI(token) : Promise<any> {
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token)
+        this.response = this.http.get(this._apiUrl + '/profile', { headers: headers }).toPromise().then(x => x.json() as any);
+		// console.log(this.response);
+        return this.response;
+	}
 
     private getProfileIndex(user_id : string){
 		for (var i = this._profiles.length; i--;) {

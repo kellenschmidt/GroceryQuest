@@ -11,7 +11,7 @@
          </a>
       </li>
       <li class="active">
-         {{ title }}
+         {{ list.title }}
       </li>
    </ol>
    <div class="row">
@@ -21,25 +21,26 @@
                List information
             </div>
             <div class="panel-body">
-               <!-- <div class="form-group">
-                  <label for="store_name">
-                     Name
-                  </label>
-                  <input  id="store_name"
-                     class="form-control"
-                     [(ngModel)]="list.store_name" />
-               </div> -->
+                <div class="form-group">
+                    <label for="list-name">
+                       List Title
+                    </label>
+                    <input class="form-control"
+                       [(ngModel)]="list.title"
+                       id = "list-name"/>
+               </div>
                <div class="form-group">
                   <label for="store_id">
                      Store
                   </label>
                   <select id="store_id"
                      class="form-control"
-                     [(ngModel)]="list.store_name">
+                     [(ngModel)]="list.store_id"
+                     (change) = "onChange($event.target.value)">
                      <option></option>
                      <option *ngFor="let store of stores"
-                        [value]="store.store_name">
-                        {{ store.store_name }}
+                        [value]="store.store_id" >
+                        {{ store.title }}
                      </option>
                   </select>
                </div>
@@ -47,11 +48,17 @@
          </div>
       </div>
       <div class="col-md-5">
-         <item-editor [model]="newListItems">
+         <item-editor [model]="list.items" [store] = "list.store_id" [list] = "list.list_id">
 
         </item-editor>
       </div>
       <div class="col-md-12">
+          <div *ngIf = "list.items?.length == 0">
+              <a class="btn btn-primary btn-block btn-lg"
+                 (click)="addList()">
+                 Add List
+              </a>
+          </div>
          <a class="btn btn-primary btn-block btn-lg"
             (click)="save()">
             Save
@@ -63,3 +70,7 @@
       </div>
    </div>
 </div>
+
+<pre>
+    {{list|json}}
+</pre>

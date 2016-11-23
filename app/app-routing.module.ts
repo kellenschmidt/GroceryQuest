@@ -27,9 +27,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
           },
           { path: '', component: ProfileComponent },
         ]},*/
-        { path: 'profile/:user_id', component: ProfileComponent },
-        { path: 'profile/:user_id/lists/new', component: ListEditorComponent },
-        { path: 'profile/:user_id/lists/:list_id', component: ListEditorComponent },
+        { path: 'profile', component: ProfileComponent },
+        { path: 'profile/lists/new', component: ListEditorComponent },
+        { path: 'profile/lists/:list_id', component: ListEditorComponent },
         { path: '**', component: NotFoundComponent},
 	]),
   ],

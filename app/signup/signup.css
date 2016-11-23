@@ -1,8 +1,8 @@
-#username:focus, #password:focus {
+#email:focus, #password:focus {
     border-color: #21ce99;
 
 }
-#username, #password {
+#email, #password {
     width: 100%;
     align-items: center;
 }

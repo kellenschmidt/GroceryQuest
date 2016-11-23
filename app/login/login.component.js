@@ -10,24 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-const http_1 = require('@angular/http');
+const token_service_1 = require('./../services/token.service');
+require('rxjs/add/operator/toPromise');
 let LoginComponent = class LoginComponent {
-    constructor(router, http) {
+    constructor(tokenService, router) {
+        this.tokenService = tokenService;
         this.router = router;
-        this.http = http;
-        this._apiUrl = "http://138.197.207.203/api";
+        this.status = 200;
     }
-    login(event, username, password) {
-        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        let options = new http_1.RequestOptions({ headers: headers });
-        // event.preventDefault();
-        // let body = JSON.stringify({ username, password });
-        // console.log(body)
-        let body = { username: username, password: password };
-        console.log(body);
-        // this.http.post(this._apiUrl + '/login', body, options)
-        // .toPromise().then(() => account)
-        // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
+    login(username, password) {
+        this.response = this.tokenService.login(username, password)
+            .then(x => {
+            this.token = x.token;
+            console.log(this.token);
+            this.status = 200;
+            this.router.navigateByUrl('profile');
+        }, (err) => {
+            this.status = err.status;
+            $("#username").css("border-color", "#f45531").css("color", "#f45531");
+        });
     }
 };
 LoginComponent = __decorate([
@@ -36,7 +37,7 @@ LoginComponent = __decorate([
         templateUrl: './app/login/login.html',
         styleUrls: ['./app/login/login.css']
     }), 
-    __metadata('design:paramtypes', [router_1.Router, http_1.Http])
+    __metadata('design:paramtypes', [token_service_1.TokenService, router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

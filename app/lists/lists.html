@@ -3,12 +3,19 @@
         <p class="list-group-title">Grocery Lists</p>
     </li>
     <li *ngFor="let list of lists" class="list-group-item">
-        <a routerLink="lists/{{ list.list_id }}">
-			{{ list.store_name }}
-		</a>
-        <span class="badge">
+        <div class = "rectangle">
+
+        </div>
+        <div class = "link">
+            <a routerLink="lists/{{ list.list_id }}">
+    			{{ list.title }}
+    		</a>
+
+        </div>
+        <span class="badge badge-success">
            {{ list.items.length }}
         </span>
+
     </li>
     <li class="list-group-item">
         <a routerLink="lists/new" class="text-success">
@@ -16,6 +23,7 @@
 		</a>
     </li>
 </ul>
-<div>
-    <pre> {{ lists|json}} </pre>
-</div>
+
+<pre>
+    {{lists|json}}
+</pre>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ListsService } from './../services/lists.service';
 import { BroadcastService } from '../services/broadcast.service';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'list-editor',
@@ -11,25 +12,46 @@ import { BroadcastService } from '../services/broadcast.service';
 
 export class ListEditorComponent {
 	title : string;
-	list: any;
+	list: any = {};
 	newListItems: any[];
 	stores: any[];
+    store_id : number;
+    indivStore : any = {};
     amount_of_items: number;
+    token: string;
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
 				private listsService : ListsService,
-				private broadcastService: BroadcastService ){}
+				private broadcastService: BroadcastService,
+                private tokenService : TokenService ){
+                    this.token = this.tokenService.getToken();
+
+                    this.listsService.getStoresAPI().then(x => {
+                        this.stores = x;
+                    });
+
+                }
 
 	ngOnInit() {
 		this.route.params.forEach((params: Params) => {
 
-			this.stores = this.listsService.getStores();
+
 
 			if(params['list_id'] !== undefined) {
-				this.list = this.listsService.getList(+params['list_id']);
-                this.newListItems = this.list.items.slice();
-				this.title = this.list.store_name.toString();
+
+                this.route.params.forEach((params: Params) => {
+                    this.listsService.getListAPI(this.token, +params['list_id']).then(x => {
+                        this.list = x;
+                        this.listsService.getStore(this.list.store_id).then(x => {
+                            this.indivStore = x;
+                            console.log(this.indivStore);
+                        });
+                    });
+
+                });
+
+
 			} else {
 				this.list = {
 					items: []
@@ -40,10 +62,36 @@ export class ListEditorComponent {
 		});
 	}
 
+    // ngAfterContentChecked() {
+    //     this.store_id = $("#store_id").val();
+    //     console.log(this.store_id)
+    //     // this.listsService.getStore(this.store_id).then(x => {
+    //     //     this.indivStore = x;
+    //     // });
+    // }
+
+    addList() {
+        console.log({token: this.token, store_id: this.list.store_id, title: this.list.title})
+        this.listsService.addList(this.token, this.list.store_id, this.list.title).then(x => {
+            this.list.list_id = x.list_id;
+            console.log(this.list);
+        });
+    }
+
 	save() {
-		this.list.items = this.newListItems.slice();
 		this.broadcastService.broadcast('saveGroceryList', this.list);
-		this.listsService.saveList(this.list);
-		this.router.navigate(['../../'], { relativeTo: this.route });
+        console.log(this.list);
+        this.listsService.saveList(this.token, this.list);
+        this.router.navigateByUrl('profile')
+		// this.router.navigate(['../../'], { relativeTo: this.route });
 	}
+
+    onChange(value) {
+        this.store_id = value;
+        this.listsService.getStore(value).then(x => {
+            this.indivStore = x;
+            console.log(this.indivStore);
+        });
+
+    }
 }

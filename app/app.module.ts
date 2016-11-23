@@ -16,6 +16,8 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { BroadcastService } from './services/broadcast.service';
+import { TokenService } from './services/token.service';
+
 import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
@@ -36,7 +38,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ProfileComponent,
     NotFoundComponent,
   ],
-  providers: [ ListsService, ProfileService, BroadcastService ],
+  providers: [ ListsService, ProfileService, BroadcastService, TokenService ],
   bootstrap: [ AppComponent ]
 })
 

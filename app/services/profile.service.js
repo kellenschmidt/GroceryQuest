@@ -9,8 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+const http_1 = require('@angular/http');
+const router_1 = require('@angular/router');
+require('rxjs/add/operator/toPromise');
 let ProfileService = class ProfileService {
-    constructor() {
+    constructor(http, router) {
+        this.http = http;
+        this.router = router;
+        this._apiUrl = "http://138.197.207.203/api";
         this._profiles = [];
         this._profiles.push({
             "user_id": "asdf32543",
@@ -62,6 +68,17 @@ let ProfileService = class ProfileService {
             }
         });
     }
+    createAuthorizationHeader(headers, token) {
+        headers.append('Authorization', 'Basic ' +
+            btoa(`${token}:`));
+    }
+    getProfileAPI(token) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        this.response = this.http.get(this._apiUrl + '/profile', { headers: headers }).toPromise().then(x => x.json());
+        // console.log(this.response);
+        return this.response;
+    }
     getProfileIndex(user_id) {
         for (var i = this._profiles.length; i--;) {
             var profile = this._profiles[i];
@@ -85,7 +102,7 @@ let ProfileService = class ProfileService {
 };
 ProfileService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [http_1.Http, router_1.Router])
 ], ProfileService);
 exports.ProfileService = ProfileService;
 //# sourceMappingURL=profile.service.js.map

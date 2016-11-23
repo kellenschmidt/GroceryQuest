@@ -15,16 +15,16 @@
          {{ item.price }}
       </span>
    </li>
-
    <li class="list-group-item">
       <div class="input-group">
          <input class="form-control"
             [placeholder]="placeholder"
             [(ngModel)]="_itemEntry.name"
             (keyup)= "autoComplete($event)"
-            list = "autocomplete" />
+            list = "autocomplete"
+            id = "autocomplete-input"/>
             <datalist id="autocomplete" >
-                <option *ngFor = "let word of autocomplete ">{{word.name}}</option>
+                <option *ngFor = "let word of autocomplete; let i = index " > {{ word.name }}</option>
             </datalist>
          <span class="input-group-btn">
             <button class="btn btn-info"
@@ -36,3 +36,6 @@
       </div>
    </li>
 </ul>
+<pre>
+    {{ model|json}}
+</pre>

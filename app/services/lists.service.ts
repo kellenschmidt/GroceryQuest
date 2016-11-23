@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { contentHeaders } from '../common/headers';
+import { Router } from '@angular/router';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -10,6 +12,7 @@ export class ListsService {
     lists: any[];
     stores: any[];
     _apiUrl: string = "http://138.197.207.203/api"
+    response : any;
 
 
     constructor(private http: Http) {
@@ -18,97 +21,74 @@ export class ListsService {
             { "store_id": 2, "store_name": "Tom Thumb on Lovers" },
             { "store_id": 3, "store_name": "Central Market on Lovers" },
             { "store_id": 4, "store_name": "Whole Foods on Greenville" },
-
-        ];
-
-        this.lists = [
-            {
-                "user_id": "asdf32543",
-                "list_id": 1,
-                "store_id": 1,
-                "store_name": "Kroger on Mockingbird",
-                "items": [
-                    {
-                        "item_id": 1,
-                        "price": 15.43,
-                        "coupon": false,
-                        "percentoff": 10,
-                        "name": "Frosted Flakes",
-                        "location": [
-                            123.144, 145.254
-                        ]
-                    },
-                    {
-                        "item_id": 2,
-                        "price": 3.99,
-                        "coupon": false,
-                        "percentoff": 0,
-                        "name": "PopTarts",
-                        "location": [
-                            156.532, 563.142
-                        ]
-                    }
-                ]
-            },
-            {
-                "list_id": 2,
-                "store_id": 2,
-                "store_name": "Tom Thumb on Lovers",
-                "items": [
-                    {
-                        "item_id": 3,
-                        "price": 5.43,
-                        "coupon": false,
-                        "percentoff": 5,
-                        "name": "Fruity Pebbles",
-                        "location": [
-                            125.144, 145.254
-                        ]
-                    },
-                    {
-                        "item_id": 4,
-                        "price": 5.43,
-                        "coupon": true,
-                        "percentoff": 0,
-                        "name": "Bagels",
-                        "location": [
-                            156.532, 563.142
-                        ]
-                    }
-                ]
-            }
         ];
     }
 
-    getLists(): any[] {
-        return this.lists;
+    createAuthorizationHeader(headers:Headers, token) {
+        headers.append('Authorization', 'Basic ' +
+        btoa(`${token}:`));
+        console.log(token);
+        console.log(btoa(`${token}`));
     }
 
-    getList(list_id: number): any {
-        return this.lists[list_id - 1];
+	getListsAPI(token) : Promise<any[]> {
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token)
+        this.response = this.http.get(this._apiUrl + '/lists', { headers: headers }).toPromise().then(x => x.json() as any);
+		// console.log(this.response)
+        return this.response;
+	}
+
+    getListAPI(token, list_id) : Promise<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token)
+        this.response = this.http.post(this._apiUrl + '/list', {list_id: list_id}, { headers: headers }).toPromise().then(x => x.json() as any);
+        return this.response;
     }
+
 
     getStores(): any {
         return this.stores;
     }
-    saveList(list) {
-        if (list.list_id === undefined) {
-            list.list_id = this.lists.length + 1;
-        }
 
-        this.lists[list.list_id - 1] = list;
+    getStoresAPI() : Promise<any[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.response = this.http.get(this._apiUrl + '/stores', { headers: headers }).toPromise().then(x => x.json() as any);
+        return this.response;
+    }
+
+    getStore(store_id) : Promise<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.response = this.http.post(this._apiUrl + '/store', {store_id : store_id }, { headers: headers }).toPromise().then(x => x.json() as any);
+        return this.response;
+    }
+
+    addList(token, store_id, title) : Promise<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        this.response = this.http.post(this._apiUrl + '/addlist', { store_id: store_id, title: title }, { headers: headers }).toPromise().then(x => x.json() as any);
+        return this.response;
+
+    }
+
+
+    saveList(token, list) : Promise<void>{
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token)
+        let body = JSON.stringify(list);
+        this.response = this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json() as any);
+        // console.log(this.response)
+        // return this.response;
     }
 
     getAmountOfItems(): number {
         return this.lists.length;
     }
 
-    getAutocomplete(data): Promise<any[]>  {
-        return this.http.get(this._apiUrl + '/autocomplete/' + data)
+    getAutocomplete(data, store_id): Promise<any[]>  {
+        return this.http.get(this._apiUrl + '/autocomplete/' + data + '?store_id=' + store_id)
 		.toPromise()
 		.then(x => x.json() as any[]);
-
-
 	}
 
 }

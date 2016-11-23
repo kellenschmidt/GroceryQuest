@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { contentHeaders } from '../common/headers';
+import { TokenService } from './../services/token.service'
 
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'login',
@@ -12,23 +14,28 @@ import { contentHeaders } from '../common/headers';
 
 export class LoginComponent {
 
-    _apiUrl: string = "http://138.197.207.203/api"
+
+    response : any;
+    token : string;
+    status : number = 200;
 
 
-    constructor(public router: Router, public http: Http) {}
+    constructor( private tokenService: TokenService, private router: Router) {}
 
-    login(event, username, password) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
 
-        // event.preventDefault();
-        // let body = JSON.stringify({ username, password });
-        // console.log(body)
-        let body = {username: username, password: password}
-        console.log(body)
-        // this.http.post(this._apiUrl + '/login', body, options)
-            // .toPromise().then(() => account)
-        // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
+    login(username, password) {
+        this.response = this.tokenService.login(username, password)
+            .then(
+            x => {
+                this.token = x.token;
+                console.log(this.token)
+                this.status = 200;
+                this.router.navigateByUrl('profile')
+            },
+            (err: any) => {
+                this.status = err.status;
+                $("#username").css("border-color", "#f45531").css("color", "#f45531");
+            });
     }
 
 }

@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
 
-
-import 'rxjs/add/operator/toPromise';
 
 import { ListsService } from './../services/lists.service';
+import { TokenService } from '../services/token.service';
+
 
 @Component({
 	selector: 'item-editor',
@@ -15,21 +14,34 @@ import { ListsService } from './../services/lists.service';
 export class ItemEditorComponent {
 
 	@Input() model: any[];
+	@Input() store: any;
+	@Input() list: any;
 	@Input() placeholder: string;
 
 	_itemEntry: any;
-
+	token: string;
 	autocomplete : any[];
-    autocompleteUrl: string = "http://138.197.207.203/api/autocomplete/"
+	update : any = {};
 
-	constructor(private listsService : ListsService, private http: Http) {
+	constructor(private listsService : ListsService, private tokenService : TokenService) {
+		this.token = this.tokenService.getToken();
 		this.placeholder = "Item name...";
 		this._itemEntry = {};
 	}
 
+
+
 	addItem() {
-		this._itemEntry.list_id = this.model.length + 1;
-		this.model.push(this._itemEntry);
+		this.listsService.getAutocomplete($("#autocomplete-input").val(), this.store)
+		.then(x =>
+		{
+			this.update = x[0];
+			this.update["position"] = this.model.length + 1;
+			// this.update["item_id"] = this.model[this.model.length - 1]["item_id"] + 1;
+			this.model.push(this.update)
+		});
+		// this._itemEntry.list_id = this.model.length + 1;
+		// this.model.push(this._itemEntry);
 		this._itemEntry = {};
 	}
 
@@ -59,9 +71,9 @@ export class ItemEditorComponent {
 	}
 
 	autoComplete(event) {
+		// TODO fix this
         if(event.target.value !== "" && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
-            this.listsService.getAutocomplete(event.target.value).then(x => this.autocomplete = x);;
-            // console.log(this.autocomplete)
+            this.listsService.getAutocomplete(event.target.value, this.store).then(x => this.autocomplete = x);
         }
     }
 

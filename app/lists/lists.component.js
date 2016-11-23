@@ -11,16 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const lists_service_1 = require('./../services/lists.service');
 const broadcast_service_1 = require('../services/broadcast.service');
+const token_service_1 = require('../services/token.service');
 let ListsComponent = class ListsComponent {
-    constructor(listsService, broadcastService) {
+    constructor(listsService, broadcastService, tokenService) {
         this.listsService = listsService;
         this.broadcastService = broadcastService;
-        this.lists = listsService.getLists();
+        this.tokenService = tokenService;
+        this.token = this.tokenService.getToken();
+        listsService.getListsAPI(this.token).then(x => {
+            this.lists = x.lists;
+            console.log(this.lists);
+        });
+        // this.lists = listsService.getLists();
     }
     ngOnInit() {
-        this.broadcastService.subscribe('saveGroceryList', (updatedList) => {
-            this.listsService.saveList(updatedList);
-        });
+        // this.broadcastService.subscribe('saveGroceryList', (updatedList) => {
+        //  		this.listsService.saveList(this.token, updatedList);
+        // });
     }
 };
 ListsComponent = __decorate([
@@ -29,7 +36,7 @@ ListsComponent = __decorate([
         templateUrl: './app/lists/lists.html',
         styleUrls: ['./app/lists/lists.css']
     }), 
-    __metadata('design:paramtypes', [lists_service_1.ListsService, broadcast_service_1.BroadcastService])
+    __metadata('design:paramtypes', [lists_service_1.ListsService, broadcast_service_1.BroadcastService, token_service_1.TokenService])
 ], ListsComponent);
 exports.ListsComponent = ListsComponent;
 //# sourceMappingURL=lists.component.js.map

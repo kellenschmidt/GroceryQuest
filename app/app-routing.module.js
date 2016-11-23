@@ -38,9 +38,9 @@ AppRoutingModule = __decorate([
                           },
                           { path: '', component: ProfileComponent },
                         ]},*/
-                { path: 'profile/:user_id', component: profile_component_1.ProfileComponent },
-                { path: 'profile/:user_id/lists/new', component: list_editor_component_1.ListEditorComponent },
-                { path: 'profile/:user_id/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
+                { path: 'profile', component: profile_component_1.ProfileComponent },
+                { path: 'profile/lists/new', component: list_editor_component_1.ListEditorComponent },
+                { path: 'profile/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
                 { path: '**', component: not_found_component_1.NotFoundComponent },
             ]),
         ],

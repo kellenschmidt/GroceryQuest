@@ -21,84 +21,58 @@ let ListsService = class ListsService {
             { "store_id": 3, "store_name": "Central Market on Lovers" },
             { "store_id": 4, "store_name": "Whole Foods on Greenville" },
         ];
-        this.lists = [
-            {
-                "user_id": "asdf32543",
-                "list_id": 1,
-                "store_id": 1,
-                "store_name": "Kroger on Mockingbird",
-                "items": [
-                    {
-                        "item_id": 1,
-                        "price": 15.43,
-                        "coupon": false,
-                        "percentoff": 10,
-                        "name": "Frosted Flakes",
-                        "location": [
-                            123.144, 145.254
-                        ]
-                    },
-                    {
-                        "item_id": 2,
-                        "price": 3.99,
-                        "coupon": false,
-                        "percentoff": 0,
-                        "name": "PopTarts",
-                        "location": [
-                            156.532, 563.142
-                        ]
-                    }
-                ]
-            },
-            {
-                "list_id": 2,
-                "store_id": 2,
-                "store_name": "Tom Thumb on Lovers",
-                "items": [
-                    {
-                        "item_id": 3,
-                        "price": 5.43,
-                        "coupon": false,
-                        "percentoff": 5,
-                        "name": "Fruity Pebbles",
-                        "location": [
-                            125.144, 145.254
-                        ]
-                    },
-                    {
-                        "item_id": 4,
-                        "price": 5.43,
-                        "coupon": true,
-                        "percentoff": 0,
-                        "name": "Bagels",
-                        "location": [
-                            156.532, 563.142
-                        ]
-                    }
-                ]
-            }
-        ];
     }
-    getLists() {
-        return this.lists;
+    createAuthorizationHeader(headers, token) {
+        headers.append('Authorization', 'Basic ' +
+            btoa(`${token}:`));
+        console.log(token);
+        console.log(btoa(`${token}`));
     }
-    getList(list_id) {
-        return this.lists[list_id - 1];
+    getListsAPI(token) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        this.response = this.http.get(this._apiUrl + '/lists', { headers: headers }).toPromise().then(x => x.json());
+        // console.log(this.response)
+        return this.response;
+    }
+    getListAPI(token, list_id) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        this.response = this.http.post(this._apiUrl + '/list', { list_id: list_id }, { headers: headers }).toPromise().then(x => x.json());
+        return this.response;
     }
     getStores() {
         return this.stores;
     }
-    saveList(list) {
-        if (list.list_id === undefined) {
-            list.list_id = this.lists.length + 1;
-        }
-        this.lists[list.list_id - 1] = list;
+    getStoresAPI() {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.response = this.http.get(this._apiUrl + '/stores', { headers: headers }).toPromise().then(x => x.json());
+        return this.response;
+    }
+    getStore(store_id) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.response = this.http.post(this._apiUrl + '/store', { store_id: store_id }, { headers: headers }).toPromise().then(x => x.json());
+        return this.response;
+    }
+    addList(token, store_id, title) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        this.response = this.http.post(this._apiUrl + '/addlist', { store_id: store_id, title: title }, { headers: headers }).toPromise().then(x => x.json());
+        return this.response;
+    }
+    saveList(token, list) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        let body = JSON.stringify(list);
+        this.response = this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json());
+        // console.log(this.response)
+        // return this.response;
     }
     getAmountOfItems() {
         return this.lists.length;
     }
-    getAutocomplete(data) {
-        return this.http.get(this._apiUrl + '/autocomplete/' + data)
+    getAutocomplete(data, store_id) {
+        return this.http.get(this._apiUrl + '/autocomplete/' + data + '?store_id=' + store_id)
             .toPromise()
             .then(x => x.json());
     }

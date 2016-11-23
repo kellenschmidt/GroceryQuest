@@ -24,6 +24,7 @@ const signup_component_1 = require('./signup/signup.component');
 const profile_component_1 = require('./profile/profile.component');
 const profile_service_1 = require('./services/profile.service');
 const broadcast_service_1 = require('./services/broadcast.service');
+const token_service_1 = require('./services/token.service');
 const not_found_component_1 = require('./not-found/not-found.component');
 let AppModule = class AppModule {
 };
@@ -46,7 +47,7 @@ AppModule = __decorate([
             profile_component_1.ProfileComponent,
             not_found_component_1.NotFoundComponent,
         ],
-        providers: [lists_service_1.ListsService, profile_service_1.ProfileService, broadcast_service_1.BroadcastService],
+        providers: [lists_service_1.ListsService, profile_service_1.ProfileService, broadcast_service_1.BroadcastService, token_service_1.TokenService],
         bootstrap: [app_component_1.AppComponent]
     }), 
     __metadata('design:paramtypes', [])

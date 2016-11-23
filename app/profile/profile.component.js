@@ -11,27 +11,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const profile_service_1 = require('./../services/profile.service');
+const token_service_1 = require('./../services/token.service');
 let ProfileComponent = class ProfileComponent {
-    constructor(route, router, profileService) {
+    constructor(route, router, profileService, tokenService) {
         this.route = route;
         this.router = router;
         this.profileService = profileService;
+        this.tokenService = tokenService;
+        this.profile = {};
     }
     ngOnInit() {
+        this.token = this.tokenService.getToken();
         this.days = [];
         for (var i = 1; i < 365; i++) {
             this.days.push(i);
         }
-        this.route.params.forEach((params) => {
-            // 'profile/:user_id'
-            if (params['user_id'] !== undefined) {
-                // TODO: handle invalid user_id
-                this.profile = this.profileService.getProfile(params['user_id']);
-            }
-            else {
-                this.profile = {};
-            }
+        // this.route.params.forEach((params: Params) => {
+        // 'profile/:user_id'
+        // if(params['user_id'] !== undefined) {
+        // if(this.profile == {}) {
+        this.profileService.getProfileAPI(this.token).then(x => {
+            this.profile = x;
         });
+        // }
+        // this.profile = this.profileService.getProfile(params['user_id']);
+        // } else {
+        // this.profile = {};
+        // }
+        // });
     }
     isInHeatmap(dayNum) {
         return this.profile.heatmap[dayNum];
@@ -49,7 +56,7 @@ ProfileComponent = __decorate([
         templateUrl: './app/profile/profile.html',
         styleUrls: ['./app/profile/profile.css']
     }), 
-    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, profile_service_1.ProfileService])
+    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, profile_service_1.ProfileService, token_service_1.TokenService])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 //# sourceMappingURL=profile.component.js.map

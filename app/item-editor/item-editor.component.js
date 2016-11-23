@@ -9,20 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const http_1 = require('@angular/http');
-require('rxjs/add/operator/toPromise');
 const lists_service_1 = require('./../services/lists.service');
+const token_service_1 = require('../services/token.service');
 let ItemEditorComponent = class ItemEditorComponent {
-    constructor(listsService, http) {
+    constructor(listsService, tokenService) {
         this.listsService = listsService;
-        this.http = http;
-        this.autocompleteUrl = "http://138.197.207.203/api/autocomplete/";
+        this.tokenService = tokenService;
+        this.update = {};
+        this.token = this.tokenService.getToken();
         this.placeholder = "Item name...";
         this._itemEntry = {};
     }
     addItem() {
-        this._itemEntry.list_id = this.model.length + 1;
-        this.model.push(this._itemEntry);
+        this.listsService.getAutocomplete($("#autocomplete-input").val(), this.store)
+            .then(x => {
+            this.update = x[0];
+            this.update["position"] = this.model.length + 1;
+            // this.update["item_id"] = this.model[this.model.length - 1]["item_id"] + 1;
+            this.model.push(this.update);
+        });
+        // this._itemEntry.list_id = this.model.length + 1;
+        // this.model.push(this._itemEntry);
         this._itemEntry = {};
     }
     swapItems(index1, index2) {
@@ -49,9 +56,9 @@ let ItemEditorComponent = class ItemEditorComponent {
         });
     }
     autoComplete(event) {
+        // TODO fix this
         if (event.target.value !== "" && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
-            this.listsService.getAutocomplete(event.target.value).then(x => this.autocomplete = x);
-            ;
+            this.listsService.getAutocomplete(event.target.value, this.store).then(x => this.autocomplete = x);
         }
     }
 };
@@ -59,6 +66,14 @@ __decorate([
     core_1.Input(), 
     __metadata('design:type', Array)
 ], ItemEditorComponent.prototype, "model", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Object)
+], ItemEditorComponent.prototype, "store", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Object)
+], ItemEditorComponent.prototype, "list", void 0);
 __decorate([
     core_1.Input(), 
     __metadata('design:type', String)
@@ -69,7 +84,7 @@ ItemEditorComponent = __decorate([
         templateUrl: './app/item-editor/item-editor.html',
         styleUrls: ['./app/item-editor/item-editor.css']
     }), 
-    __metadata('design:paramtypes', [lists_service_1.ListsService, http_1.Http])
+    __metadata('design:paramtypes', [lists_service_1.ListsService, token_service_1.TokenService])
 ], ItemEditorComponent);
 exports.ItemEditorComponent = ItemEditorComponent;
 //# sourceMappingURL=item-editor.component.js.map
