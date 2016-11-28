@@ -17,19 +17,34 @@ let ListsComponent = class ListsComponent {
         this.listsService = listsService;
         this.broadcastService = broadcastService;
         this.tokenService = tokenService;
+        this.temp = {};
+        this.profileLists = new core_1.EventEmitter();
         this.token = this.tokenService.getToken();
         listsService.getListsAPI(this.token).then(x => {
             this.lists = x.lists;
+            this.model = this.lists;
             console.log(this.lists);
         });
         // this.lists = listsService.getLists();
     }
-    ngOnInit() {
-        // this.broadcastService.subscribe('saveGroceryList', (updatedList) => {
-        //  		this.listsService.saveList(this.token, updatedList);
-        // });
+    get model() {
+        return this.temp;
+    }
+    set model(lists) {
+        this.temp = lists;
+        console.log(this.temp);
+        console.log(this.profileLists);
+        this.profileLists.emit(this.temp);
     }
 };
+__decorate([
+    core_1.Output(), 
+    __metadata('design:type', Object)
+], ListsComponent.prototype, "profileLists", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Object)
+], ListsComponent.prototype, "model", null);
 ListsComponent = __decorate([
     core_1.Component({
         selector: 'lists',

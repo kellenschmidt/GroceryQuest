@@ -16,7 +16,8 @@ let ProfileService = class ProfileService {
     constructor(http, router) {
         this.http = http;
         this.router = router;
-        this._apiUrl = "http://138.197.207.203/api";
+        // _apiUrl: string = "http://138.197.207.203/api"
+        this._apiUrl = "https://groceryquest.party/api";
         this._profiles = [];
         this._profiles.push({
             "user_id": "asdf32543",

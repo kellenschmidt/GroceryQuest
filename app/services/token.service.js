@@ -16,7 +16,8 @@ let TokenService = class TokenService {
     constructor(http, router) {
         this.http = http;
         this.router = router;
-        this._apiUrl = "http://138.197.207.203/api";
+        // _apiUrl: string = "http://138.197.207.203/api"
+        this._apiUrl = "https://groceryquest.party/api";
     }
     createAuthorizationHeader(headers, username, password) {
         headers.append('Authorization', 'Basic ' +

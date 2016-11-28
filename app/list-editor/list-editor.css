@@ -1,0 +1,21 @@
+.breadcrumb-link {
+    color: #21ce99;
+}
+
+.glyphicon-home {
+    color: #21ce99;
+}
+
+.panel-heading {
+    background-color: #e7fff8;
+    color: #168865;
+}
+
+input[id="list-name"]:focus {
+    border-color: #21ce99;
+}
+
+select[id="store_id"]:focus {
+    border-color: #21ce99;
+
+}

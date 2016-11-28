@@ -11,7 +11,9 @@ export class ListsService {
 
     lists: any[];
     stores: any[];
-    _apiUrl: string = "http://138.197.207.203/api"
+    // _apiUrl: string = "http://138.197.207.203/api"
+    _apiUrl: string = "https://groceryquest.party/api";
+    _googleUrl: string = "https://maps.googleapis.com/maps/api/geocode/json";
     response : any;
 
 
@@ -72,11 +74,12 @@ export class ListsService {
     }
 
 
-    saveList(token, list) : Promise<void>{
+    saveList(token, list) : Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         this.createAuthorizationHeader(headers, token)
         let body = JSON.stringify(list);
         this.response = this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json() as any);
+        return this.response;
         // console.log(this.response)
         // return this.response;
     }
@@ -90,5 +93,11 @@ export class ListsService {
 		.toPromise()
 		.then(x => x.json() as any[]);
 	}
+
+    getMap(address) : Promise<any> {
+        return this.http.get(this._googleUrl + "?address=" + address + "&key=AIzaSyBYE-4gk74pmow2BSIMueumCHb8A_kdZlw")
+        .toPromise()
+        .then(x => x.json() as any);
+    }
 
 }

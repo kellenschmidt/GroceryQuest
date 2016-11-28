@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { ListsService } from './../services/lists.service';
 import { BroadcastService } from '../services/broadcast.service';
@@ -13,8 +13,30 @@ import { TokenService } from '../services/token.service';
 })
 
 export class ListsComponent {
+
+
+
+
+
+
 	token: string;
-	lists: any[];
+	lists: any;
+
+	temp: any = {};
+
+	@Output() profileLists = new EventEmitter();
+	@Input() get model() {
+		return this.temp;
+	}
+
+	  set model(lists) {
+		  this.temp = lists;
+		  console.log(this.temp)
+		  console.log(this.profileLists)
+		  this.profileLists.emit(this.temp);
+	  }
+
+
 
 	constructor(private listsService: ListsService,
 		private broadcastService: BroadcastService,
@@ -23,17 +45,14 @@ export class ListsComponent {
 
 		listsService.getListsAPI(this.token).then(x => {
 			this.lists = x.lists;
+			this.model = this.lists;
 			console.log(this.lists);
-		})
+		});
 
 
 		// this.lists = listsService.getLists();
 	}
 
-	ngOnInit() {
-		// this.broadcastService.subscribe('saveGroceryList', (updatedList) => {
-     //  		this.listsService.saveList(this.token, updatedList);
-    	// });
-	}
+
 
 }

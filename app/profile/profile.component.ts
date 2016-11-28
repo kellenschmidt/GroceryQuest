@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ProfileService } from './../services/profile.service';
 import { TokenService } from './../services/token.service';
+import { ListsService } from './../services/lists.service';
 
 
 @Component({
@@ -15,11 +16,16 @@ export class ProfileComponent {
   profile : any = {};
   days: number[];
   token: string;
+  temp: any = {};
+  lists: any[];
+  i : number;
+  numItems : number = 0;
 
   constructor(private route: ActivatedRoute,
 		private router: Router,
 		private profileService : ProfileService,
-        private tokenService : TokenService ){}
+        private tokenService : TokenService,
+        private listsService : ListsService ){}
 
 
   ngOnInit() {
@@ -37,12 +43,21 @@ export class ProfileComponent {
                 x => {
                     this.profile = x;
                 });
+
+
             // }
 				// this.profile = this.profileService.getProfile(params['user_id']);
 			// } else {
 				// this.profile = {};
 			// }
 		// });
+  }
+
+  noItems() : number {
+      for ( this.i = 0; this.i < this.lists.length; this.i++) {
+          this.numItems += this.lists[this.i].items.length;
+      }
+      return this.numItems;
   }
 
   isInHeatmap(dayNum: number) : boolean {

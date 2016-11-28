@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const token_service_1 = require('./../services/token.service');
-require('rxjs/add/operator/toPromise');
 let LoginComponent = class LoginComponent {
     constructor(tokenService, router) {
         this.tokenService = tokenService;

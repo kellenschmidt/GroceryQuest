@@ -20,12 +20,18 @@ import { TokenService } from './services/token.service';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 
+import { AgmCoreModule } from 'angular2-google-maps/core';
+
+
 @NgModule({
   imports:      [
   	BrowserModule,
   	FormsModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCNiDGEJK09Bb1A_CRi8-bOJwlhKF8ox3g'
+    })
   ],
   declarations: [
   	AppComponent,

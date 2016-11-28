@@ -19,6 +19,9 @@ export class ListEditorComponent {
     indivStore : any = {};
     amount_of_items: number;
     token: string;
+    lat: string;
+    lng: string;
+    zoom: number = 15;
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
@@ -46,6 +49,13 @@ export class ListEditorComponent {
                         this.listsService.getStore(this.list.store_id).then(x => {
                             this.indivStore = x;
                             console.log(this.indivStore);
+
+                            this.listsService.getMap(this.indivStore.address).then(x => {
+                                this.lat = x.results[0].geometry.location.lat;
+                                this.lng = x.results[0].geometry.location.lng;
+
+                            });
+
                         });
                     });
 
@@ -59,6 +69,11 @@ export class ListEditorComponent {
 				this.newListItems = [];
 				this.title = 'New List';
 			}
+
+
+
+
+
 		});
 	}
 
@@ -81,8 +96,8 @@ export class ListEditorComponent {
 	save() {
 		this.broadcastService.broadcast('saveGroceryList', this.list);
         console.log(this.list);
-        this.listsService.saveList(this.token, this.list);
-        this.router.navigateByUrl('profile')
+        // how to wait for this to return to navigate
+        this.listsService.saveList(this.token, this.list).then(this.router.navigateByUrl('profile'));
 		// this.router.navigate(['../../'], { relativeTo: this.route });
 	}
 
@@ -91,6 +106,11 @@ export class ListEditorComponent {
         this.listsService.getStore(value).then(x => {
             this.indivStore = x;
             console.log(this.indivStore);
+            this.listsService.getMap(this.indivStore.address).then(x => {
+                this.lat = x.results[0].geometry.location.lat;
+                this.lng = x.results[0].geometry.location.lng;
+
+            });
         });
 
     }

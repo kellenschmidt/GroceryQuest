@@ -7,3 +7,14 @@
 .btn.dropdown-toggle {
     padding: 6.25px 12px;
 }
+
+
+.list-group-item-info {
+    background-color: #e7fff8;
+    color: #168865;
+}
+
+input[id="autocomplete-input"]:focus {
+	border-color: #21ce99;
+
+}

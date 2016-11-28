@@ -4,8 +4,6 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 import { TokenService } from './../services/token.service'
 
-import 'rxjs/add/operator/toPromise';
-
 @Component({
   selector: 'login',
   templateUrl: './app/login/login.html',

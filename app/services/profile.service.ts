@@ -9,7 +9,9 @@ import 'rxjs/add/operator/toPromise';
 export class ProfileService {
 
 	private _profiles: any[];
-	_apiUrl: string = "http://138.197.207.203/api"
+	// _apiUrl: string = "http://138.197.207.203/api"
+	_apiUrl: string = "https://groceryquest.party/api"
+
 	response : any;
 
 

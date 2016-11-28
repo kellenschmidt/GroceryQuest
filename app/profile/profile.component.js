@@ -12,13 +12,17 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const profile_service_1 = require('./../services/profile.service');
 const token_service_1 = require('./../services/token.service');
+const lists_service_1 = require('./../services/lists.service');
 let ProfileComponent = class ProfileComponent {
-    constructor(route, router, profileService, tokenService) {
+    constructor(route, router, profileService, tokenService, listsService) {
         this.route = route;
         this.router = router;
         this.profileService = profileService;
         this.tokenService = tokenService;
+        this.listsService = listsService;
         this.profile = {};
+        this.temp = {};
+        this.numItems = 0;
     }
     ngOnInit() {
         this.token = this.tokenService.getToken();
@@ -40,6 +44,12 @@ let ProfileComponent = class ProfileComponent {
         // }
         // });
     }
+    noItems() {
+        for (this.i = 0; this.i < this.lists.length; this.i++) {
+            this.numItems += this.lists[this.i].items.length;
+        }
+        return this.numItems;
+    }
     isInHeatmap(dayNum) {
         return this.profile.heatmap[dayNum];
     }
@@ -56,7 +66,7 @@ ProfileComponent = __decorate([
         templateUrl: './app/profile/profile.html',
         styleUrls: ['./app/profile/profile.css']
     }), 
-    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, profile_service_1.ProfileService, token_service_1.TokenService])
+    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, profile_service_1.ProfileService, token_service_1.TokenService, lists_service_1.ListsService])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 //# sourceMappingURL=profile.component.js.map

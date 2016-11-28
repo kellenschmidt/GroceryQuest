@@ -27,7 +27,7 @@
                 <option *ngFor = "let word of autocomplete; let i = index " > {{ word.name }}</option>
             </datalist>
          <span class="input-group-btn">
-            <button class="btn btn-info"
+            <button class="btn btn-success"
                (click)="addItem()"
                [disabled]="!_itemEntry.name">
                Add
@@ -36,6 +36,6 @@
       </div>
    </li>
 </ul>
-<pre>
+<!-- <pre>
     {{ model|json}}
-</pre>
+</pre> -->

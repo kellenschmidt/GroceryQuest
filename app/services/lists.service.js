@@ -14,7 +14,9 @@ require('rxjs/add/operator/toPromise');
 let ListsService = class ListsService {
     constructor(http) {
         this.http = http;
-        this._apiUrl = "http://138.197.207.203/api";
+        // _apiUrl: string = "http://138.197.207.203/api"
+        this._apiUrl = "https://groceryquest.party/api";
+        this._googleUrl = "https://maps.googleapis.com/maps/api/geocode/json";
         this.stores = [
             { "store_id": 1, "store_name": "Kroger on Mockingbird" },
             { "store_id": 2, "store_name": "Tom Thumb on Lovers" },
@@ -65,6 +67,7 @@ let ListsService = class ListsService {
         this.createAuthorizationHeader(headers, token);
         let body = JSON.stringify(list);
         this.response = this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json());
+        return this.response;
         // console.log(this.response)
         // return this.response;
     }
@@ -73,6 +76,11 @@ let ListsService = class ListsService {
     }
     getAutocomplete(data, store_id) {
         return this.http.get(this._apiUrl + '/autocomplete/' + data + '?store_id=' + store_id)
+            .toPromise()
+            .then(x => x.json());
+    }
+    getMap(address) {
+        return this.http.get(this._googleUrl + "?address=" + address + "&key=AIzaSyBYE-4gk74pmow2BSIMueumCHb8A_kdZlw")
             .toPromise()
             .then(x => x.json());
     }

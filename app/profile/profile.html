@@ -8,9 +8,10 @@
        <li class="active">
           Profile
        </li>
+
     </ol>
 
-    <div class="dropdown" id="your-account-dropdown">
+    <!-- <div class="dropdown" id="your-account-dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
         Your Account
         <span class="caret"></span>
@@ -20,29 +21,83 @@
         <li role="separator" class="divider"></li>
         <li><a>Log Out</a></li>
       </ul>
+    </div> -->
+
+    <div class="col-md-3 profile-left">
+        <div class="profile-cover-photo" tabindex="-1">
+
+        </div>
+        <div class="profile-content">
+            <a class = "profile-avatar" tabindex="-1">
+                <img class = "profile-avatar-image" src="https://pbs.twimg.com/profile_images/704424754455810048/pWLnUeet_bigger.jpg"/>
+            </a>
+        </div>
+        <div class = "profile-user-fields">
+            <p class = "profile-first-last">
+                {{ profile.first_name }} {{ profile.last_name }}
+            </p>
+            <span class = "profile-email" dir="ltr">
+                <p>
+                    {{ profile.email }}
+                </p>
+            </span>
+        </div>
+        <div class="profile-stats">
+            <ul class = "profile-stats-list arrange arrange-bottom arrange-equal">
+                <li class = "profile-stat arrange-size-fit" >
+                    <a class = "profile-stat-link">
+                        <span class = "profile-stat-label">Lists</span>
+                        <span class = "profile-stat-value">200</span>
+                    </a>
+                </li>
+                <li class = "profile-stat arrange-size-fit" >
+                    <a class = "profile-stat-link">
+                        <span class = "profile-stat-label">Items</span>
+                        <span class = "profile-stat-value">200</span>
+                    </a>
+                </li>
+                <li class = "profile-stat arrange-size-fit" >
+                    <a class = "profile-stat-link">
+                        <span class = "profile-stat-label">???</span>
+                        <span class = "profile-stat-value">200</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
     </div>
 
 
-    <div class="page-header">
-        <h1>{{ profile.first_name }} {{ profile.last_name }}<small>{{ profile.email }}</small></h1>
+
+    <div class="col-md-9 profile-right">
+        <lists [(model)] = "temp"></lists>
     </div>
 
 
+<pre>
+    {{lists|json}}
+</pre>
 
-    <lists></lists>
+<pre>
+    {{temp|json}}
+</pre>
+    <!-- <div>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                <p class="list-group-title">Heatmap</p>
+            </li>
+            <li class="list-group-item">
+                <div id="heatmap">
+                    <div *ngFor="let day of days"
+                        [ngStyle]="{'background-color': setHeatSquareStyle(day)}"
+                        class="heat-square" >
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div> -->
 
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-info">
-            <p class="list-group-title">Heatmap</p>
-        </li>
-        <li class="list-group-item">
-            <div id="heatmap">
-                <!-- <div *ngFor="let day of days"
-                    [ngStyle]="{'background-color': setHeatSquareStyle(day)}"
-                    class="heat-square" >
-                </div> -->
-            </div>
-        </li>
-    </ul>
 
 </div>

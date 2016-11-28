@@ -26,6 +26,7 @@ const profile_service_1 = require('./services/profile.service');
 const broadcast_service_1 = require('./services/broadcast.service');
 const token_service_1 = require('./services/token.service');
 const not_found_component_1 = require('./not-found/not-found.component');
+const core_2 = require('angular2-google-maps/core');
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -34,7 +35,10 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             app_routing_module_1.AppRoutingModule,
-            http_1.HttpModule
+            http_1.HttpModule,
+            core_2.AgmCoreModule.forRoot({
+                apiKey: 'AIzaSyCNiDGEJK09Bb1A_CRi8-bOJwlhKF8ox3g'
+            })
         ],
         declarations: [
             app_component_1.AppComponent,

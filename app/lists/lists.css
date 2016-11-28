@@ -8,7 +8,7 @@
 .rectangle {
     width: 10px;
     height: 40px;
-    background: red;
+    background: #398439;
     display: inline-block;
     margin-right: 25px;
 }
@@ -21,6 +21,10 @@
     top: -10px;
 }
 
+.link-text {
+    color: #21ce99;
+}
+
 .badge {
     float: right;
     position: relative;
@@ -30,4 +34,32 @@
 
 .badge-success {
     background-color: #398439;
+}
+
+.list-container, .lists{
+    list-style: none;
+    position: relative;
+    margin-left: 0;
+}
+
+.store-title {
+    display: inline;
+    color: grey;
+    font-size: 16px;
+}
+
+li:nth-child(odd):{
+    background: green;
+}
+
+#new-list {
+        font-size: 25px;
+}
+
+
+.list-group-title {
+    color: #168865;
+}
+.list-group-item-info {
+    background-color: #e7fff8;
 }
