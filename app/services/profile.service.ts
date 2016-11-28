@@ -19,40 +19,9 @@ export class ProfileService {
             "username": "andrewterra",
             "firstname": "Andrew",
             "lastname": "Terra",
-            "heatmap": {
-                1: true,
-                2: true,
-                3: false,
-                4: true,
-                7: true,
-                8: true,
-                12: true,
-                13: true,
-                14: true,
-                21: true,
-                26: true,
-                35: true,
-                36: true,
-                37: true,
-                38: true,
-                43: true,
-                48: true,
-                49: true,
-                56: true,
-                57: true,
-                58: true,
-                68: true,
-                69: true,
-                70: true,
-                74: true,
-                75: true,
-                77: true,
-                80: true,
-                81: true,
-                86: true,
-                87: true,
-                365: false,
-            }
+            "heatmap": [ 
+                1, 2, 3, 4, 7, 8, 12, 13, 14, 21, 26, 35, 36, 37, 38, 43, 48, 49, 56, 57, 58, 68, 69, 70, 74, 75, 77, 80, 81, 86, 87, 365,
+            ]
         });
 
     }

@@ -23,11 +23,9 @@ export class ListsService {
                 "store": "Walmart on Skillman",
                 "address": "6185 Retail Rd, Dallas, TX 75231",
                 "business": [
-                    [0, 3], [1, 5], [2, 10], [3, 20], [4, 15], [5, 12], [6, 10], [7, 8], [8, 5], [9, 5]
+                    3, 5, 10, 20, 15, 12, 10, 8, 5, 5, 0,
                 ]
             }];
-
-        //this.getListsHttp({"user_id": 1}).then(x => this.lists = x);
 
         this.lists = [
             {
@@ -42,7 +40,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 10,
                         "name": "Frosted Flakes",
-                        "aisle_num": 1
+                        "aisle_num": 1,
+                        "position": 2,
+                        "product_id": 1
                     },
                     {
                         "item_id": 2,
@@ -50,7 +50,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 0,
                         "name": "PopTarts",
-                        "aisle_num": 2
+                        "aisle_num": 2,
+                        "position": 1,
+                        "product_id": 2
                     },
                     {
                         "item_id": 3,
@@ -58,7 +60,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 20,
                         "name": "Lucky Charms",
-                        "aisle_num": 3
+                        "aisle_num": 3,
+                        "position": 3,
+                        "product_id": null
                     }
                 ]
             },
@@ -74,7 +78,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 10,
                         "name": "Frosted Flakes",
-                        "aisle_num": 1
+                        "aisle_num": 1,
+                        "position": 1,
+                        "product_id": 1
                     },
                     {
                         "item_id": 2,
@@ -82,7 +88,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 0,
                         "name": "PopTarts",
-                        "aisle_num": 2
+                        "aisle_num": 2,
+                        "position": 2,
+                        "product_id": 2
                     },
                     {
                         "item_id": 3,
@@ -90,7 +98,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 20,
                         "name": "Lucky Charms",
-                        "aisle_num": 3
+                        "aisle_num": 3,
+                        "position": 3,
+                        "product_id": null
                     }
                 ]
             },
@@ -105,7 +115,9 @@ export class ListsService {
                         "coupon": false,
                         "percentoff": 5,
                         "name": "Fruity Pebbles",
-                        "aisle_num": 3
+                        "aisle_num": 3,
+                        "position": 1,
+                        "product_id": 1
                     },
                     {
                         "item_id": 4,
@@ -113,7 +125,9 @@ export class ListsService {
                         "coupon": true,
                         "percentoff": 0,
                         "name": "Bagels",
-                        "aisle_num": 4
+                        "aisle_num": 4,
+                        "position": 2,
+                        "product_id": 2
                     }
                 ]
             }

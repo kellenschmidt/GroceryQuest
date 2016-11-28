@@ -15,7 +15,10 @@ export class ListEditorComponent {
 	newListItems: any[];
 	stores: any[];
 	store: any;
-	maxBusiness: number = 0	;
+	maxBusiness: number = 0;
+	business: number[];
+	weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	dayOfWeek: string;
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
@@ -42,6 +45,9 @@ export class ListEditorComponent {
 				this.title = 'New List';
 				this.maxBusiness = 0;
 			}
+
+			let d = new Date();
+			this.setDayOfWeek(this.weekdays[d.getDay()]);
 		});
 	}
 
@@ -82,10 +88,20 @@ export class ListEditorComponent {
 
 	setMaxBusiness() {
 		for(let i=0; i<this.store.business.length; i++) {
-			if(this.store.business[i][1] > this.maxBusiness) {
-				this.maxBusiness = this.store.business[i][1];
+			if(this.store.business[i] > this.maxBusiness) {
+				this.maxBusiness = this.store.business[i];
 			}
 		}
+	}
+
+	setBusinessofDay(day: string) {
+		let dayNum = this.weekdays.indexOf(day);
+		this.business = this.store.business.slice(dayNum*24, dayNum*24+24);
+	}
+
+	setDayOfWeek(newDay: string) {
+		this.dayOfWeek = newDay;
+		this.setBusinessofDay(newDay);
 	}
 
 	canDeactivate(): Promise<boolean> | boolean {

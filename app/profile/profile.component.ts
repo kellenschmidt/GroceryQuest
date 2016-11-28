@@ -25,9 +25,7 @@ export class ProfileComponent {
     }
     
     this.route.params.forEach((params: Params) => {
-      // 'profile/:user_id'
 			if(params['user_id'] !== undefined) {
-        // TODO: handle invalid user_id
 				this.profile = this.profileService.getProfile(params['user_id']);
 			} else {
 				this.profile = {};
@@ -35,8 +33,12 @@ export class ProfileComponent {
 		});
   }
 
-  isInHeatmap(dayNum: number) : boolean {
-    return this.profile.heatmap[dayNum];
+  isInHeatmap(dayNum: number) : number {
+    let arrayIndex: number = this.profile.heatmap.indexOf(dayNum);
+    if(arrayIndex === -1) {
+      return 0;
+    }
+    return arrayIndex;
   }
 
   setHeatSquareStyle(dayNum: number) {

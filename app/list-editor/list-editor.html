@@ -38,8 +38,20 @@
             <label for="peak-hours">
               Peak hours
             </label>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true">{{dayOfWeek}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li *ngFor="let day of weekdays"><a (click)="setDayOfWeek(day)">{{day}}</a></li>
+              </ul>
+            </div>
             <br>
-            <div class="hour-column" *ngFor="let column of store.business" [ngStyle]="{height: getColumnHeight(column[1])}"></div>
+            <div class="hour-column" *ngFor="let column of business; let i=index">
+              <div [ngStyle]="{height: getColumnHeight(column)}"></div>
+              <div *ngIf="i%3 === 0">{{i}}</div>
+            </div>
           </div>
         </div>
       </div>

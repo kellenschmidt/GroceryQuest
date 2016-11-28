@@ -24,6 +24,10 @@ export class ItemEditorComponent {
 		this._itemEntry = {};
 	}
 
+	ngOnInit() {
+		this.sortByPosition();
+	}
+
 	addItem() {
 		this._itemEntry.list_id = this.model.length + 1;
 		this.model.push(this._itemEntry);
@@ -41,10 +45,21 @@ export class ItemEditorComponent {
 		}
 		// Get element at index2
 		let tempItem: any[] = this.model.slice(index2, index2 + 1);
+		// Get positions in list of items at index1 and index2
+		let index1Position: number = this.model[index1].position;
+		let index2Position: number = this.model[index2].position;
 		// Copy element at index1 to element at index2
 		this.model.copyWithin(index2, index1, index1 + 1);
+		this.model[index2].position = index2Position;
 		// Set element at index1 equal to element at index2
 		this.model[index1] = tempItem[0];
+		this.model[index1].position = index1Position;
+	}
+
+	reassignPositions() {
+		for(let i=0; i<this.model.length; i++) {
+			this.model[i].position = i+1;
+		}
 	}
 
 	// Sort json item objects by name using custom compare function
@@ -57,6 +72,7 @@ export class ItemEditorComponent {
 			else
 				return 0;
 		});
+		this.reassignPositions();
 	}
 
 	sortByAisle() {
@@ -64,6 +80,18 @@ export class ItemEditorComponent {
 			if(a.aisle_num < b.aisle_num)
 				return -1;
 			else if (a.aisle_num > b.aisle_num)
+				return 1;
+			else
+				return 0;
+		});
+		this.reassignPositions();
+	}
+
+	sortByPosition() {
+		this.model.sort(function(a: any, b:any):number {
+			if(a.position < b.position)
+				return -1;
+			else if (a.position > b.position)
 				return 1;
 			else
 				return 0;
