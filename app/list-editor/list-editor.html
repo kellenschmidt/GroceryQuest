@@ -32,7 +32,6 @@
                 {{ store.store }}
               </option>
             </select>
-            <pre> {{ list.store|json}} </pre>
           </div>
           <div>
             <label for="peak-hours">
@@ -48,9 +47,15 @@
               </ul>
             </div>
             <br>
-            <div class="hour-column" *ngFor="let column of business; let i=index">
-              <div [ngStyle]="{height: getColumnHeight(column)}"></div>
-              <div *ngIf="i%3 === 0">{{i}}</div>
+            <div class="hour-column hour-bar" 
+                 *ngFor="let column of business"
+                 [ngStyle]="{height: getColumnHeight(column)}">              
+            </div>
+            <br>
+            <div *ngFor="let column of business; let i=index"
+                 class="hour-column">
+                 <div *ngIf="i%3 === 0"
+                      class="hour-column-label">{{getColumnLabel(i+1)}}</div>
             </div>
           </div>
         </div>

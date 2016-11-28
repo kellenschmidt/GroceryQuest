@@ -23,7 +23,7 @@ export class ListsService {
                 "store": "Walmart on Skillman",
                 "address": "6185 Retail Rd, Dallas, TX 75231",
                 "business": [
-                    3, 5, 10, 20, 15, 12, 10, 8, 5, 5, 0,
+                    1, 1, 1, 1, 1, 2, 3, 5, 8, 10, 14, 20, 22, 15, 14, 13, 12, 10, 8, 5, 5, 3 ,2, 1, 1,
                 ]
             }];
 

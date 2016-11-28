@@ -46,7 +46,7 @@ export class ProfileService {
 
     updateList(user_id: string, list_id: number) {
         let profileIndexToUpdate: number = this.getProfileIndex(user_id);
-        let listToUpdate: number = this._profiles[profileIndexToUpdate].lists[list_id]
+        let listToUpdate: number = this._profiles[profileIndexToUpdate].lists[list_id];
     }
 
     getProfileHttp(data: string): Promise<any[]>  {

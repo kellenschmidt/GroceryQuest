@@ -83,7 +83,7 @@ export class ListEditorComponent {
 	}
 
 	getColumnHeight(height: any): number {
-		return (height/this.maxBusiness)*50;
+		return (height/this.maxBusiness)*60;
 	}
 
 	setMaxBusiness() {
@@ -102,6 +102,16 @@ export class ListEditorComponent {
 	setDayOfWeek(newDay: string) {
 		this.dayOfWeek = newDay;
 		this.setBusinessofDay(newDay);
+	}
+
+	getColumnLabel(index: number): string {
+		if(index == 0)
+			return '';
+		if(index == 12)
+			return '12p';
+		if(index < 12)
+			return (index).toString()+"a";
+		return (index%12).toString()+"p";
 	}
 
 	canDeactivate(): Promise<boolean> | boolean {
