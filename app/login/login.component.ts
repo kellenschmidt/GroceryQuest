@@ -4,6 +4,9 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 import { TokenService } from './../services/token.service'
 
+
+
+
 @Component({
   selector: 'login',
   templateUrl: './app/login/login.html',
@@ -16,6 +19,7 @@ export class LoginComponent {
     response : any;
     token : string;
     status : number = 200;
+    isValid: boolean = true;
 
 
     constructor( private tokenService: TokenService, private router: Router) {}
@@ -32,7 +36,8 @@ export class LoginComponent {
             },
             (err: any) => {
                 this.status = err.status;
-                $("#username").css("border-color", "#f45531").css("color", "#f45531");
+                this.isValid = false;
+                // $("#username").css("border-color", "#f45531").css("color", "#f45531");
             });
     }
 

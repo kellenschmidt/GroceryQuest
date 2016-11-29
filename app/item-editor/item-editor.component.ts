@@ -30,10 +30,12 @@ export class ItemEditorComponent {
 		this._itemEntry = {};
 	}
 
-
+	// ngOnInit() {
+	// 	this.sortByPosition();
+	// }
 
 	addItem() {
-		this.listsService.getAutocomplete($("#autocomplete-input").val(), this.store)
+		this.listsService.getAutocomplete(this._itemEntry.name, this.store)
 		.then(x =>
 		{
 			this.update = x[0];
@@ -46,6 +48,10 @@ export class ItemEditorComponent {
 		this._itemEntry = {};
 	}
 
+	removeItem(index: number) {
+		this.model.splice(index, 1);
+	}
+
 	swapItems(index1: number, index2: number) {
 		// Skip swaps for out of range indices
 		if(index1 < 0 || index2 >= this.model.length) {
@@ -53,14 +59,25 @@ export class ItemEditorComponent {
 		}
 		// Get element at index2
 		let tempItem: any[] = this.model.slice(index2, index2 + 1);
+		// Get positions in list of items at index1 and index2
+		let index1Position: number = this.model[index1].position;
+		let index2Position: number = this.model[index2].position;
 		// Copy element at index1 to element at index2
 		this.model.copyWithin(index2, index1, index1 + 1);
+		this.model[index2].position = index2Position;
 		// Set element at index1 equal to element at index2
 		this.model[index1] = tempItem[0];
+		this.model[index1].position = index1Position;
+	}
+
+	reassignPositions() {
+		for(let i=0; i<this.model.length; i++) {
+			this.model[i].position = i+1;
+		}
 	}
 
 	// Sort json item objects by name using custom compare function
-	sortItems() {
+	sortByName() {
 		this.model.sort(function(a: any, b: any):number {
 			if(a.name < b.name)
 				return -1;
@@ -69,13 +86,37 @@ export class ItemEditorComponent {
 			else
 				return 0;
 		});
+		this.reassignPositions();
+	}
+
+	sortByAisle() {
+		this.model.sort(function(a: any, b: any):number {
+			if(a.location < b.location)
+				return -1;
+			else if (a.location > b.location)
+				return 1;
+			else
+				return 0;
+		});
+		this.reassignPositions();
+	}
+
+	sortByPosition() {
+		this.model.sort(function(a: any, b:any):number {
+			if(a.position < b.position)
+				return -1;
+			else if (a.position > b.position)
+				return 1;
+			else
+				return 0;
+		});
 	}
 
 	autoComplete(event) {
 		// TODO fix this
-        if(event.target.value !== "" && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
+        // if(event.target.value !== "" && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
             this.listsService.getAutocomplete(event.target.value, this.store).then(x => this.autocomplete = x);
-        }
+        // }
     }
 
 }

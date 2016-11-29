@@ -47,19 +47,19 @@
                 <li class = "profile-stat arrange-size-fit" >
                     <a class = "profile-stat-link">
                         <span class = "profile-stat-label">Lists</span>
-                        <span class = "profile-stat-value">200</span>
+                        <span class = "profile-stat-value">{{ lists?.length }}</span>
                     </a>
                 </li>
                 <li class = "profile-stat arrange-size-fit" >
                     <a class = "profile-stat-link">
                         <span class = "profile-stat-label">Items</span>
-                        <span class = "profile-stat-value">200</span>
+                        <span class = "profile-stat-value">{{ numItems }}</span>
                     </a>
                 </li>
                 <li class = "profile-stat arrange-size-fit" >
                     <a class = "profile-stat-link">
-                        <span class = "profile-stat-label">???</span>
-                        <span class = "profile-stat-value">200</span>
+                        <span class = "profile-stat-label">$$$</span>
+                        <span class = "profile-stat-value">{{ price | number : '.2' }}</span>
                     </a>
                 </li>
 
@@ -72,32 +72,23 @@
 
 
     <div class="col-md-9 profile-right">
-        <lists [(model)] = "temp"></lists>
+        <lists [model] = "lists"></lists>
     </div>
 
 
-<pre>
-    {{lists|json}}
-</pre>
-
-<pre>
-    {{temp|json}}
-</pre>
-    <!-- <div>
+    <div class = "col-md-3 profile-left">
         <ul class="list-group">
             <li class="list-group-item list-group-item-info">
                 <p class="list-group-title">Heatmap</p>
             </li>
             <li class="list-group-item">
-                <div id="heatmap">
-                    <div *ngFor="let day of days"
+                <div id="heatmap" *ngIf = "profile?.heatmap">
+                   <div *ngFor="let day of days"
                         [ngStyle]="{'background-color': setHeatSquareStyle(day)}"
-                        class="heat-square" >
-                    </div>
+                        class="heat-square">
+                   </div>
                 </div>
             </li>
         </ul>
-    </div> -->
-
-
+    </div>
 </div>

@@ -11,9 +11,13 @@ small {
     margin-bottom: 0px;
 }
 
+#heatmap {
+    margin: 10px;
+}
+
 .heat-square {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border: 1px solid white;
     display: inline-block;
 }
@@ -157,4 +161,11 @@ small {
 
 .breadcrumb {
     color: #21ce99;
+}
+
+.list-group-title {
+    color: #168865;
+}
+.list-group-item-info {
+    background-color: #e7fff8;
 }

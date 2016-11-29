@@ -18,3 +18,22 @@ input[id="autocomplete-input"]:focus {
 	border-color: #21ce99;
 
 }
+
+
+.glyphicon-sort-by-alphabet,
+.glyphicon-sort-by-attributes {
+	font-size: 17px;
+}
+
+.glyphicon-sort-by-attributes {
+	margin-left: 7px;
+}
+
+.btn.dropdown-toggle {
+    padding: 6.25px 12px;
+}
+
+.location {
+	display: inline;
+	color: grey;
+}

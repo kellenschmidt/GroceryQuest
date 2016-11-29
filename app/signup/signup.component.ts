@@ -18,6 +18,7 @@ export class SignupComponent {
     response : any;
     token : string;
     status : number = 200;
+    isValid : boolean = true;
 
     constructor(private tokenService: TokenService, private router: Router) {}
 
@@ -33,7 +34,8 @@ export class SignupComponent {
             },
             (err: any) => {
                 this.status = err.status;
-                $("#email").css("border-color", "#f45531").css("color", "#f45531");
+                this.isValid = false;
+                // $("#email").css("border-color", "#f45531").css("color", "#f45531");
             });
 
     }

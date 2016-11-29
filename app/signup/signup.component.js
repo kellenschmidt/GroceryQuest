@@ -16,6 +16,7 @@ let SignupComponent = class SignupComponent {
         this.tokenService = tokenService;
         this.router = router;
         this.status = 200;
+        this.isValid = true;
     }
     signup(email, first_name, last_name, password) {
         this.response = this.tokenService.signup(email, first_name, last_name, password)
@@ -26,7 +27,8 @@ let SignupComponent = class SignupComponent {
             this.router.navigateByUrl('profile');
         }, (err) => {
             this.status = err.status;
-            $("#email").css("border-color", "#f45531").css("color", "#f45531");
+            this.isValid = false;
+            // $("#email").css("border-color", "#f45531").css("color", "#f45531");
         });
     }
 };

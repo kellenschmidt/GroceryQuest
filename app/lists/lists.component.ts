@@ -24,17 +24,7 @@ export class ListsComponent {
 
 	temp: any = {};
 
-	@Output() profileLists = new EventEmitter();
-	@Input() get model() {
-		return this.temp;
-	}
-
-	  set model(lists) {
-		  this.temp = lists;
-		  console.log(this.temp)
-		  console.log(this.profileLists)
-		  this.profileLists.emit(this.temp);
-	  }
+	@Input() model : any = {};
 
 
 

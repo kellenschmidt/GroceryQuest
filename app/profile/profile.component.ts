@@ -19,7 +19,9 @@ export class ProfileComponent {
   temp: any = {};
   lists: any[];
   i : number;
+  j : number;
   numItems : number = 0;
+  price : number = 0;
 
   constructor(private route: ActivatedRoute,
 		private router: Router,
@@ -42,8 +44,14 @@ export class ProfileComponent {
                 this.profileService.getProfileAPI(this.token).then(
                 x => {
                     this.profile = x;
+                    console.log(this.profile);
                 });
 
+                this.listsService.getListsAPI(this.token).then(x => {
+        			this.lists = x.lists;
+                    this.countItems();
+                    this.countPrice();
+        		});
 
             // }
 				// this.profile = this.profileService.getProfile(params['user_id']);
@@ -53,20 +61,35 @@ export class ProfileComponent {
 		// });
   }
 
-  noItems() : number {
+
+  countItems() {
       for ( this.i = 0; this.i < this.lists.length; this.i++) {
           this.numItems += this.lists[this.i].items.length;
       }
-      return this.numItems;
   }
 
-  isInHeatmap(dayNum: number) : boolean {
-    return this.profile.heatmap[dayNum];
+  countPrice() {
+      for ( this.i = 0; this.i < this.lists.length; this.i++) {
+          for (this.j = 0; this.j < this.lists[this.i].items.length; this.j++) {
+              this.price += this.lists[this.i].items[this.j].price;
+          }
+
+      }
   }
+
+
+  isInHeatmap(dayNum: number) : number {
+    let arrayIndex: number = this.profile.heatmap.indexOf(dayNum);
+    if(arrayIndex === -1) {
+      return 0;
+    }
+    return arrayIndex;
+  }
+
 
   setHeatSquareStyle(dayNum: number) {
     if(this.isInHeatmap(dayNum))
-      return "blue";
+      return "#168865";
     else
       return "#dbdbdb";
   }

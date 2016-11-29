@@ -66,7 +66,15 @@ let ListsService = class ListsService {
         let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.createAuthorizationHeader(headers, token);
         let body = JSON.stringify(list);
-        this.response = this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json());
+        this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json());
+        return this.response;
+        // console.log(this.response)
+        // return this.response;
+    }
+    deleteList(token, list_id) {
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token);
+        this.http.post(this._apiUrl + '/removelist', { list_id: list_id }, { headers: headers }).toPromise().then(x => x.json());
         return this.response;
         // console.log(this.response)
         // return this.response;

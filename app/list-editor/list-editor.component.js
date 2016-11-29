@@ -23,6 +23,8 @@ let ListEditorComponent = class ListEditorComponent {
         this.list = {};
         this.indivStore = {};
         this.zoom = 15;
+        this.maxBusyness = 0;
+        this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         this.token = this.tokenService.getToken();
         this.listsService.getStoresAPI().then(x => {
             this.stores = x;
@@ -34,8 +36,12 @@ let ListEditorComponent = class ListEditorComponent {
                 this.route.params.forEach((params) => {
                     this.listsService.getListAPI(this.token, +params['list_id']).then(x => {
                         this.list = x;
+                        this.newListItems = this.list.items.slice();
                         this.listsService.getStore(this.list.store_id).then(x => {
                             this.indivStore = x;
+                            this.setMaxBusyness();
+                            let d = new Date();
+                            this.setDayOfWeek(this.weekdays[d.getDay()]);
                             console.log(this.indivStore);
                             this.listsService.getMap(this.indivStore.address).then(x => {
                                 this.lat = x.results[0].geometry.location.lat;
@@ -51,8 +57,36 @@ let ListEditorComponent = class ListEditorComponent {
                 };
                 this.newListItems = [];
                 this.title = 'New List';
+                this.maxBusyness = 0;
             }
         });
+    }
+    getColumnHeight(height) {
+        return ((height / this.maxBusyness) * 60) + 3;
+    }
+    setMaxBusyness() {
+        for (let i = 0; i < this.indivStore.busyness.length; i++) {
+            if (this.indivStore.busyness[i] > this.maxBusyness) {
+                this.maxBusyness = this.indivStore.busyness[i];
+            }
+        }
+    }
+    setBusynessofDay(day) {
+        let dayNum = this.weekdays.indexOf(day);
+        this.busyness = this.indivStore.busyness.slice(dayNum * 24, dayNum * 24 + 24);
+    }
+    setDayOfWeek(newDay) {
+        this.dayOfWeek = newDay;
+        this.setBusynessofDay(newDay);
+    }
+    getColumnLabel(index) {
+        if (index == 0)
+            return '';
+        if (index == 12)
+            return '12p';
+        if (index < 12)
+            return (index).toString() + "a";
+        return (index % 12).toString() + "p";
     }
     // ngAfterContentChecked() {
     //     this.store_id = $("#store_id").val();
@@ -72,19 +106,37 @@ let ListEditorComponent = class ListEditorComponent {
         this.broadcastService.broadcast('saveGroceryList', this.list);
         console.log(this.list);
         // how to wait for this to return to navigate
-        this.listsService.saveList(this.token, this.list).then(this.router.navigateByUrl('profile'));
+        this.listsService.saveList(this.token, this.list);
+        this.router.navigateByUrl('profile');
         // this.router.navigate(['../../'], { relativeTo: this.route });
+    }
+    delete() {
+        this.listsService.deleteList(this.token, this.list.list_id);
+        this.router.navigateByUrl('profile');
     }
     onChange(value) {
         this.store_id = value;
         this.listsService.getStore(value).then(x => {
             this.indivStore = x;
+            this.setMaxBusyness();
+            let d = new Date();
+            this.setDayOfWeek(this.weekdays[d.getDay()]);
             console.log(this.indivStore);
             this.listsService.getMap(this.indivStore.address).then(x => {
                 this.lat = x.results[0].geometry.location.lat;
                 this.lng = x.results[0].geometry.location.lng;
             });
         });
+    }
+    // Analyzes two list item arrays comparing item names for equivalence
+    listsEqual(array1, array2) {
+        if (array1.length !== array2.length)
+            return false;
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i].name !== array2[i].name)
+                return false;
+        }
+        return true;
     }
 };
 ListEditorComponent = __decorate([

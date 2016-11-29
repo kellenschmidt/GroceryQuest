@@ -33,7 +33,7 @@ export class ListsService {
         console.log(btoa(`${token}`));
     }
 
-	getListsAPI(token) : Promise<any[]> {
+	getListsAPI(token) : Promise<any> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
         this.createAuthorizationHeader(headers, token)
         this.response = this.http.get(this._apiUrl + '/lists', { headers: headers }).toPromise().then(x => x.json() as any);
@@ -78,7 +78,16 @@ export class ListsService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         this.createAuthorizationHeader(headers, token)
         let body = JSON.stringify(list);
-        this.response = this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json() as any);
+        this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json() as any);
+        return this.response;
+        // console.log(this.response)
+        // return this.response;
+    }
+
+    deleteList(token, list_id) : Promise<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.createAuthorizationHeader(headers, token)
+        this.http.post(this._apiUrl + '/removelist', {list_id: list_id}, { headers: headers }).toPromise().then(x => x.json() as any);
         return this.response;
         // console.log(this.response)
         // return this.response;

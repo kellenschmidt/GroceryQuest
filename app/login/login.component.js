@@ -16,6 +16,7 @@ let LoginComponent = class LoginComponent {
         this.tokenService = tokenService;
         this.router = router;
         this.status = 200;
+        this.isValid = true;
     }
     login(username, password) {
         this.response = this.tokenService.login(username, password)
@@ -26,7 +27,8 @@ let LoginComponent = class LoginComponent {
             this.router.navigateByUrl('profile');
         }, (err) => {
             this.status = err.status;
-            $("#username").css("border-color", "#f45531").css("color", "#f45531");
+            this.isValid = false;
+            // $("#username").css("border-color", "#f45531").css("color", "#f45531");
         });
     }
 };

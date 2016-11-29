@@ -23,6 +23,7 @@ let ProfileComponent = class ProfileComponent {
         this.profile = {};
         this.temp = {};
         this.numItems = 0;
+        this.price = 0;
     }
     ngOnInit() {
         this.token = this.tokenService.getToken();
@@ -36,6 +37,12 @@ let ProfileComponent = class ProfileComponent {
         // if(this.profile == {}) {
         this.profileService.getProfileAPI(this.token).then(x => {
             this.profile = x;
+            console.log(this.profile);
+        });
+        this.listsService.getListsAPI(this.token).then(x => {
+            this.lists = x.lists;
+            this.countItems();
+            this.countPrice();
         });
         // }
         // this.profile = this.profileService.getProfile(params['user_id']);
@@ -44,18 +51,28 @@ let ProfileComponent = class ProfileComponent {
         // }
         // });
     }
-    noItems() {
+    countItems() {
         for (this.i = 0; this.i < this.lists.length; this.i++) {
             this.numItems += this.lists[this.i].items.length;
         }
-        return this.numItems;
+    }
+    countPrice() {
+        for (this.i = 0; this.i < this.lists.length; this.i++) {
+            for (this.j = 0; this.j < this.lists[this.i].items.length; this.j++) {
+                this.price += this.lists[this.i].items[this.j].price;
+            }
+        }
     }
     isInHeatmap(dayNum) {
-        return this.profile.heatmap[dayNum];
+        let arrayIndex = this.profile.heatmap.indexOf(dayNum);
+        if (arrayIndex === -1) {
+            return 0;
+        }
+        return arrayIndex;
     }
     setHeatSquareStyle(dayNum) {
         if (this.isInHeatmap(dayNum))
-            return "blue";
+            return "#168865";
         else
             return "#dbdbdb";
     }
