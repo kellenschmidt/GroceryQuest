@@ -142,17 +142,23 @@ export class ListEditorComponent {
         });
     }
 
-	save() {
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+	async save() {
 		this.broadcastService.broadcast('saveGroceryList', this.list);
         console.log(this.list);
         // how to wait for this to return to navigate
         this.listsService.saveList(this.token, this.list)
+        await this.sleep(250)
         this.router.navigateByUrl('profile');
 		// this.router.navigate(['../../'], { relativeTo: this.route });
 	}
 
-    delete() {
+    async delete() {
 		this.listsService.deleteList(this.token, this.list.list_id)
+        await this.sleep(250)
         this.router.navigateByUrl('profile');
 	}
 
