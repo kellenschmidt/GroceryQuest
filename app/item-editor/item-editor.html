@@ -1,22 +1,42 @@
 <ul class="list-group">
-   <li class="list-group-item list-group-item-info">
-      Items
-   </li>
-   <li  class="list-group-item"
-      *ngFor="let item of model">
-      {{ item.name }}
-      <span class="badge">
-         {{ item.price }}
-      </span>
-   </li>
+    <li class="list-group-item list-group-item-info">
+       <p id="list-title">Items</p>
+       <span class="glyphicon glyphicon-sort-by-attributes pull-right"
+             (click)="sortByAisle()"></span>
+       <span class="glyphicon glyphicon-sort-by-alphabet pull-right"
+             (click)="sortByName()"></span>
+    </li>
+    <li class="list-group-item"
+       *ngFor="let item of model; let i=index">
+             <span class="glyphicon glyphicon-remove"
+                   (click)="removeItem(i)"></span>
+             <span class="glyphicon glyphicon-menu-up"
+                   (click)="swapItems(i - 1, i)"></span>
+             <span class="glyphicon glyphicon-menu-down"
+                   (click)="swapItems(i, i + 1)"></span>
+             {{ item.name }}
+             <div class = "location">
+                &nbsp; Aisle: {{ item.location }}
+             </div>
+
+             <span class="badge">
+             ${{ item.price }}
+             </span>
+    </li>
 
    <li class="list-group-item">
       <div class="input-group">
          <input class="form-control"
             [placeholder]="placeholder"
-            [(ngModel)]="_itemEntry.name" />
+            [(ngModel)]="_itemEntry.name"
+            (keyup)= "autoComplete($event)"
+            list = "autocomplete"
+            id = "autocomplete-input"/>
+            <datalist id="autocomplete" >
+                <option *ngFor = "let word of autocomplete; let i = index " > {{ word.name }}</option>
+            </datalist>
          <span class="input-group-btn">
-            <button class="btn btn-info"
+            <button class="btn btn-success"
                (click)="addItem()"
                [disabled]="!_itemEntry.name">
                Add
@@ -25,3 +45,6 @@
       </div>
    </li>
 </ul>
+<!-- <pre>
+    {{ _itemEntry|json}}
+</pre> -->

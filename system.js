@@ -16,6 +16,8 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       'rxjs': 'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
+      'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js', 
+
     },
     packages: {
       app: {

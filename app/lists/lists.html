@@ -1,29 +1,46 @@
-<!-- <ol class="breadcrumb">
-   <li>
-      <a routerLink="/">
-      <span class="glyphicon glyphicon-home"></span>
-      </a>
-   </li>
-   <li class="active">
-      Lists
-   </li>
-</ol> -->
-<ul class="list-group">
-    <li class="list-group-item list-group-item-info">
-        <p class="list-group-title">Grocery Lists</p>
-    </li>
-	<li *ngFor="let list of lists"
-		class="list-group-item">
-		<a routerLink="lists/{{ list.list_id }}">
-			{{ list.store_name }}
-		</a>
-        <span class="badge">
-           {{ list.items.length }}
-        </span>
-	</li>
-	<li class="list-group-item">
-		<a routerLink="lists/new" class="text-success">
-			New List...
-		</a>
-	</li>
-</ul>
+
+<div class="list-container">
+    <div class="lists">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                <p class="list-group-title">Grocery Lists
+                    <a routerLink="lists/new" class="text-success">
+                        <button type="button" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+            		</a>
+
+                </p>
+
+            </li>
+
+
+            <li *ngFor="let list of lists, let i=index" class="list-group-item" id = "lists">
+                <div class = "rectangle" [id]="i">
+
+                </div>
+                <div class = "link">
+                    <a routerLink="lists/{{ list.list_id }}" class = "link-text">
+            			{{ list.title }}
+            		</a>
+                    <div class = "store-title">
+                        {{ list.store }}
+                    </div>
+
+
+                </div>
+                <span class="badge badge-success">
+                   {{ list.items.length }}
+                </span>
+
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+
+<!-- <pre>
+    {{temp|json}}
+</pre> -->

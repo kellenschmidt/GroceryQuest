@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const platform_browser_1 = require('@angular/platform-browser');
 const forms_1 = require('@angular/forms');
-const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 const app_component_1 = require('./app.component');
-const lists_service_1 = require('./lists.service');
+const app_routing_module_1 = require('./app-routing.module');
+const lists_service_1 = require('./services/lists.service');
 const landing_component_1 = require('./landing/landing.component');
 const lists_component_1 = require('./lists/lists.component');
 const list_editor_component_1 = require('./list-editor/list-editor.component');
@@ -22,8 +22,11 @@ const item_editor_component_1 = require('./item-editor/item-editor.component');
 const login_component_1 = require('./login/login.component');
 const signup_component_1 = require('./signup/signup.component');
 const profile_component_1 = require('./profile/profile.component');
+const profile_service_1 = require('./services/profile.service');
+const broadcast_service_1 = require('./services/broadcast.service');
+const token_service_1 = require('./services/token.service');
 const not_found_component_1 = require('./not-found/not-found.component');
-const profile_service_1 = require('./profile.service');
+const core_2 = require('angular2-google-maps/core');
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -31,20 +34,11 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
-            router_1.RouterModule.forRoot([
-                { path: '', component: landing_component_1.LandingComponent },
-                { path: 'lists', component: lists_component_1.ListsComponent },
-                { path: 'lists/new', component: list_editor_component_1.ListEditorComponent },
-                { path: 'lists/:list_id', component: list_editor_component_1.ListEditorComponent },
-                { path: 'login', component: login_component_1.LoginComponent },
-                { path: 'signup', component: signup_component_1.SignupComponent },
-                { path: 'profile/:user_id', component: profile_component_1.ProfileComponent },
-                { path: 'profile/:user_id/lists/new', component: list_editor_component_1.ListEditorComponent },
-                { path: 'profile/:user_id/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
-                { path: '/404', component: not_found_component_1.NotFoundComponent },
-                { path: '/*path', redirectTo: '404' }
-            ]),
-            http_1.HttpModule
+            app_routing_module_1.AppRoutingModule,
+            http_1.HttpModule,
+            core_2.AgmCoreModule.forRoot({
+                apiKey: 'AIzaSyCNiDGEJK09Bb1A_CRi8-bOJwlhKF8ox3g'
+            })
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -55,9 +49,9 @@ AppModule = __decorate([
             login_component_1.LoginComponent,
             signup_component_1.SignupComponent,
             profile_component_1.ProfileComponent,
-            not_found_component_1.NotFoundComponent
+            not_found_component_1.NotFoundComponent,
         ],
-        providers: [lists_service_1.ListsService, profile_service_1.ProfileService],
+        providers: [lists_service_1.ListsService, profile_service_1.ProfileService, broadcast_service_1.BroadcastService, token_service_1.TokenService],
         bootstrap: [app_component_1.AppComponent]
     }), 
     __metadata('design:paramtypes', [])

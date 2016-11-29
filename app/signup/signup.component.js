@@ -10,17 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-const http_1 = require('@angular/http');
+const token_service_1 = require('./../services/token.service');
 let SignupComponent = class SignupComponent {
-    constructor(router, http) {
+    constructor(tokenService, router) {
+        this.tokenService = tokenService;
         this.router = router;
-        this.http = http;
+        this.status = 200;
+        this.isValid = true;
     }
-    signup(event, username, password) {
-        event.preventDefault();
-        let body = JSON.stringify({ username, password });
-        console.log(body);
-        // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
+    signup(email, first_name, last_name, password) {
+        this.response = this.tokenService.signup(email, first_name, last_name, password)
+            .then(x => {
+            this.token = x.token;
+            console.log(this.token);
+            this.status = 200;
+            this.router.navigateByUrl('profile');
+        }, (err) => {
+            this.status = err.status;
+            this.isValid = false;
+            // $("#email").css("border-color", "#f45531").css("color", "#f45531");
+        });
     }
 };
 SignupComponent = __decorate([
@@ -29,7 +38,7 @@ SignupComponent = __decorate([
         templateUrl: './app/signup/signup.html',
         styleUrls: ['./app/signup/signup.css']
     }), 
-    __metadata('design:paramtypes', [router_1.Router, http_1.Http])
+    __metadata('design:paramtypes', [token_service_1.TokenService, router_1.Router])
 ], SignupComponent);
 exports.SignupComponent = SignupComponent;
 //# sourceMappingURL=signup.component.js.map

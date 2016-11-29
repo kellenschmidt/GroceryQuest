@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
-
 import { AppComponent }   from './app.component';
-import { ListsService } from './lists.service';
+import { AppRoutingModule } from './app-routing.module';
+import { ListsService } from './services/lists.service';
 import { LandingComponent }   from './landing/landing.component';
 import { ListsComponent }   from './lists/lists.component';
 import { ListEditorComponent } from './list-editor/list-editor.component';
@@ -14,31 +14,26 @@ import { ItemEditorComponent }   from './item-editor/item-editor.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileService } from './services/profile.service';
+import { BroadcastService } from './services/broadcast.service';
+import { TokenService } from './services/token.service';
+
+
+
 import { NotFoundComponent } from './not-found/not-found.component';
 
-import { ProfileService } from './profile.service';
-
-
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 
 @NgModule({
   imports:      [
   	BrowserModule,
   	FormsModule,
-  	RouterModule.forRoot([
-  		{ path: '', component: LandingComponent },
-  		{ path: 'lists', component: ListsComponent },
-        { path: 'lists/new', component: ListEditorComponent },
-  		{ path: 'lists/:list_id', component: ListEditorComponent },
-        { path: 'login', component: LoginComponent },
-        { path: 'signup', component: SignupComponent },
-        { path: 'profile/:user_id', component: ProfileComponent},
-        { path: 'profile/:user_id/lists/new', component: ListEditorComponent},
-        { path: 'profile/:user_id/lists/:list_id', component: ListEditorComponent},
-        { path: '/404', component: NotFoundComponent},
-        { path: '/*path', redirectTo: '404' }
-	]),
-    HttpModule
+    AppRoutingModule,
+    HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCNiDGEJK09Bb1A_CRi8-bOJwlhKF8ox3g'
+    })
   ],
   declarations: [
   	AppComponent,
@@ -49,10 +44,10 @@ import { ProfileService } from './profile.service';
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
-  providers: [ ListsService, ProfileService ],
-  bootstrap:    [ AppComponent ]
+  providers: [ ListsService, ProfileService, BroadcastService, TokenService ],
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }

@@ -1,0 +1,42 @@
+.breadcrumb-link {
+    color: #21ce99;
+}
+
+.glyphicon-home {
+    color: #21ce99;
+}
+
+.panel-heading {
+    background-color: #e7fff8;
+    color: #168865;
+}
+
+input[id="list-name"]:focus {
+    border-color: #21ce99;
+}
+
+select[id="store_id"]:focus {
+    border-color: #21ce99;
+
+}
+
+.hour-column {
+    display: inline-block;
+    width: 20px;
+}
+
+.hour-bar {
+    background-color: #21ce99;
+    border-radius: 4px 4px 0 0;
+    border: 1px solid white;
+}
+
+.hour-column-label {
+    font-size: 10px;
+    margin-left: 3px;
+}
+
+.space {
+    padding: 4px;
+    font-size: 10px;
+}

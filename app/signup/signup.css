@@ -1,8 +1,8 @@
-#username:focus, #password:focus {
+#email:focus, #password:focus {
     border-color: #21ce99;
 
 }
-#username, #password {
+#email, #password {
     width: 100%;
     align-items: center;
 }
@@ -27,7 +27,7 @@
     border-color: #199972;
 }
 
-body {
+.signup-page {
     padding: 30px;
     font-family: "DIN Web", "Hiragino Sans GB", STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
         font-size: 15px;
@@ -38,4 +38,9 @@ body {
 .signup-button {
     max-width: 100%;
     width: 300px;
+}
+
+.invalid {
+    border-color: #f45531;
+    color: #f45531;
 }

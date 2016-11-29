@@ -9,20 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const lists_service_1 = require('./../lists.service');
+const lists_service_1 = require('./../services/lists.service');
+const broadcast_service_1 = require('../services/broadcast.service');
+const token_service_1 = require('../services/token.service');
 let ListsComponent = class ListsComponent {
-    constructor(listsService) {
+    constructor(listsService, broadcastService, tokenService) {
         this.listsService = listsService;
-        this.lists = listsService.getLists();
+        this.broadcastService = broadcastService;
+        this.tokenService = tokenService;
+        this.temp = {};
+        this.model = {};
+        this.token = this.tokenService.getToken();
+        listsService.getListsAPI(this.token).then(x => {
+            this.lists = x.lists;
+            this.model = this.lists;
+            console.log(this.lists);
+        });
+        // this.lists = listsService.getLists();
     }
 };
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Object)
+], ListsComponent.prototype, "model", void 0);
 ListsComponent = __decorate([
     core_1.Component({
         selector: 'lists',
         templateUrl: './app/lists/lists.html',
         styleUrls: ['./app/lists/lists.css']
     }), 
-    __metadata('design:paramtypes', [lists_service_1.ListsService])
+    __metadata('design:paramtypes', [lists_service_1.ListsService, broadcast_service_1.BroadcastService, token_service_1.TokenService])
 ], ListsComponent);
 exports.ListsComponent = ListsComponent;
 //# sourceMappingURL=lists.component.js.map

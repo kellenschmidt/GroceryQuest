@@ -1,43 +1,94 @@
-<ol class="breadcrumb">
-   <li>
-      <a routerLink="/">
-      <span class="glyphicon glyphicon-home"></span>
-      </a>
-   </li>
-   <li class="active">
-      Profile
-   </li>
-</ol>
+<div class="container">
+    <ol class="breadcrumb">
+       <li>
+          <a routerLink="/">
+          <span class="glyphicon glyphicon-home"></span>
+          </a>
+       </li>
+       <li class="active">
+          Profile
+       </li>
 
-<div class="dropdown" id="your-account-dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Your Account
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a>Edit profile</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a>Log Out</a></li>
-  </ul>
-</div>
+    </ol>
 
-<div class="page-header">
-    <h1>{{ profile.firstname }} {{ profile.lastname }}<small>{{ profile.username }}</small></h1>
-</div>
+    <!-- <div class="dropdown" id="your-account-dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
+        Your Account
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a>Edit profile</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a>Log Out</a></li>
+      </ul>
+    </div> -->
 
-<lists></lists>
+    <div class="col-md-3 profile-left">
+        <div class="profile-cover-photo" tabindex="-1">
 
-<ul class="list-group">
-    <li class="list-group-item list-group-item-info">
-        <p class="list-group-title">Heatmap</p>
-    </li>
-    <li class="list-group-item">
-		<div id="heatmap">
-            <div *ngFor="let day of days" 
-                [style.background-color]="setHeatSquareStyle(day)"
-                class="heat-square" >
-            </div>
         </div>
-	</li>
-</ul>
+        <div class="profile-content">
+            <a class = "profile-avatar" tabindex="-1">
+                <img class = "profile-avatar-image" src="https://pbs.twimg.com/profile_images/704424754455810048/pWLnUeet_bigger.jpg"/>
+            </a>
+        </div>
+        <div class = "profile-user-fields">
+            <p class = "profile-first-last">
+                {{ profile.first_name }} {{ profile.last_name }}
+            </p>
+            <span class = "profile-email" dir="ltr">
+                <p>
+                    {{ profile.email }}
+                </p>
+            </span>
+        </div>
+        <div class="profile-stats">
+            <ul class = "profile-stats-list arrange arrange-bottom arrange-equal">
+                <li class = "profile-stat arrange-size-fit" >
+                    <a class = "profile-stat-link">
+                        <span class = "profile-stat-label">Lists</span>
+                        <span class = "profile-stat-value">{{ lists?.length }}</span>
+                    </a>
+                </li>
+                <li class = "profile-stat arrange-size-fit" >
+                    <a class = "profile-stat-link">
+                        <span class = "profile-stat-label">Items</span>
+                        <span class = "profile-stat-value">{{ numItems }}</span>
+                    </a>
+                </li>
+                <li class = "profile-stat arrange-size-fit" >
+                    <a class = "profile-stat-link">
+                        <span class = "profile-stat-label">$$$</span>
+                        <span class = "profile-stat-value">{{ price | number : '.2' }}</span>
+                    </a>
+                </li>
 
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-9 profile-right">
+        <lists [model] = "lists"></lists>
+    </div>
+
+
+    <div class = "col-md-3 profile-left">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                <p class="list-group-title">Heatmap</p>
+            </li>
+            <li class="list-group-item">
+                <div id="heatmap" *ngIf = "profile?.heatmap">
+                   <div *ngFor="let day of days"
+                        [ngStyle]="{'background-color': setHeatSquareStyle(day)}"
+                        class="heat-square">
+                   </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
