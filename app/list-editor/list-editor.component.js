@@ -8,6 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments)).next());
+    });
+};
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const lists_service_1 = require('./../services/lists.service');
@@ -102,17 +110,26 @@ let ListEditorComponent = class ListEditorComponent {
             console.log(this.list);
         });
     }
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     save() {
-        this.broadcastService.broadcast('saveGroceryList', this.list);
-        console.log(this.list);
-        // how to wait for this to return to navigate
-        this.listsService.saveList(this.token, this.list);
-        this.router.navigateByUrl('profile');
-        // this.router.navigate(['../../'], { relativeTo: this.route });
+        return __awaiter(this, void 0, void 0, function* () {
+            this.broadcastService.broadcast('saveGroceryList', this.list);
+            console.log(this.list);
+            // how to wait for this to return to navigate
+            this.listsService.saveList(this.token, this.list);
+            yield this.sleep(250);
+            this.router.navigateByUrl('profile');
+            // this.router.navigate(['../../'], { relativeTo: this.route });
+        });
     }
     delete() {
-        this.listsService.deleteList(this.token, this.list.list_id);
-        this.router.navigateByUrl('profile');
+        return __awaiter(this, void 0, void 0, function* () {
+            this.listsService.deleteList(this.token, this.list.list_id);
+            yield this.sleep(250);
+            this.router.navigateByUrl('profile');
+        });
     }
     onChange(value) {
         this.store_id = value;
