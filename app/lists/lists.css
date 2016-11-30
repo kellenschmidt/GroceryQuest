@@ -63,3 +63,7 @@ li:nth-child(odd):{
 .list-group-item-info {
     background-color: #e7fff8;
 }
+
+.extra {
+    height: 300px;
+}
