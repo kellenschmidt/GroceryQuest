@@ -26,12 +26,15 @@ export class ListEditorComponent {
 	busyness: number[];
 	weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	dayOfWeek: string;
+    newButton : boolean = false;
+    old : boolean = false;
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
 				private listsService : ListsService,
 				private broadcastService: BroadcastService,
                 private tokenService : TokenService ){
+
                     this.token = this.tokenService.getToken();
 
                     this.listsService.getStoresAPI().then(x => {
@@ -41,40 +44,39 @@ export class ListEditorComponent {
                 }
 
 	ngOnInit() {
+
 		this.route.params.forEach((params: Params) => {
-
-
 
 			if(params['list_id'] !== undefined) {
 
+                this.old = true;
                 this.route.params.forEach((params: Params) => {
+
                     this.listsService.getListAPI(this.token, +params['list_id']).then(x => {
+
                         this.list = x;
                         this.newListItems = this.list.items.slice();
 
                         this.listsService.getStore(this.list.store_id).then(x => {
+
                             this.indivStore = x;
-
                             this.setMaxBusyness();
-
                             let d = new Date();
                 			this.setDayOfWeek(this.weekdays[d.getDay()]);
 
-                            console.log(this.indivStore);
-
                             this.listsService.getMap(this.indivStore.address).then(x => {
+
                                 this.lat = x.results[0].geometry.location.lat;
                                 this.lng = x.results[0].geometry.location.lng;
 
                             });
-
                         });
                     });
-
                 });
 
-
 			} else {
+
+                this.newButton = true;
 				this.list = {
 					items: []
 				};
@@ -83,13 +85,6 @@ export class ListEditorComponent {
                 this.maxBusyness = 0;
 
 			}
-
-
-
-
-
-
-
 		});
 	}
 
@@ -126,19 +121,11 @@ export class ListEditorComponent {
 		return (index%12).toString()+"p";
 	}
 
-    // ngAfterContentChecked() {
-    //     this.store_id = $("#store_id").val();
-    //     console.log(this.store_id)
-    //     // this.listsService.getStore(this.store_id).then(x => {
-    //     //     this.indivStore = x;
-    //     // });
-    // }
-
     addList() {
-        console.log({token: this.token, store_id: this.list.store_id, title: this.list.title})
+        this.old = true;
+        this.newButton = false;
         this.listsService.addList(this.token, this.list.store_id, this.list.title).then(x => {
             this.list.list_id = x.list_id;
-            console.log(this.list);
         });
     }
 
@@ -147,13 +134,15 @@ export class ListEditorComponent {
     }
 
 	async save() {
-		this.broadcastService.broadcast('saveGroceryList', this.list);
-        console.log(this.list);
-        // how to wait for this to return to navigate
-        this.listsService.saveList(this.token, this.list)
-        await this.sleep(250)
-        this.router.navigateByUrl('profile');
-		// this.router.navigate(['../../'], { relativeTo: this.route });
+        if ( this.list.items.length === 0) {
+            alert("Add item(s) to save your list!")
+        } else {
+            this.broadcastService.broadcast('saveGroceryList', this.list);
+            // how to wait for this to return to navigate
+            this.listsService.saveList(this.token, this.list)
+            await this.sleep(250)
+            this.router.navigateByUrl('profile');
+        }
 	}
 
     async delete() {
@@ -172,7 +161,6 @@ export class ListEditorComponent {
             let d = new Date();
 			this.setDayOfWeek(this.weekdays[d.getDay()]);
 
-            console.log(this.indivStore);
             this.listsService.getMap(this.indivStore.address).then(x => {
                 this.lat = x.results[0].geometry.location.lat;
                 this.lng = x.results[0].geometry.location.lng;
@@ -193,13 +181,4 @@ export class ListEditorComponent {
 		return true;
 	}
 
-    // canDeactivate(): Promise<boolean> | boolean {
-	// 	// Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-	// 	if (!this.list || this.listsEqual(this.list.items, this.newListItems)) {
-	// 		return true;
-	// 	}
-	// 	// Otherwise ask the user with the dialog service and return its
-	// 	// promise which resolves to true or false when the user decides
-	// 	return confirm('Discard changes?');
-	// }
 }

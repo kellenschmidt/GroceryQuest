@@ -2,11 +2,11 @@
     border-color: #21ce99;
 
 }
+
 #email, #password {
     width: 100%;
     align-items: center;
 }
-
 
 .btn-lg {
     border-radius: 8px;

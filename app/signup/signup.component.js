@@ -22,13 +22,11 @@ let SignupComponent = class SignupComponent {
         this.response = this.tokenService.signup(email, first_name, last_name, password)
             .then(x => {
             this.token = x.token;
-            console.log(this.token);
             this.status = 200;
             this.router.navigateByUrl('profile');
         }, (err) => {
             this.status = err.status;
             this.isValid = false;
-            // $("#email").css("border-color", "#f45531").css("color", "#f45531");
         });
     }
 };

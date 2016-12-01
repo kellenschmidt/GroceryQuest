@@ -1,11 +1,17 @@
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
-       <p id="list-title">Items</p>
-       <span class="glyphicon glyphicon-sort-by-attributes pull-right"
-             (click)="sortByAisle()"></span>
-       <span class="glyphicon glyphicon-sort-by-alphabet pull-right"
-             (click)="sortByName()"></span>
+       <p id="list-title" class = "list-group-title">Items</p>
+       <button type="button" class="btn btn-info aisle-sort pull-right">
+           <span class="glyphicon glyphicon-sort-by-attributes"
+                 (click)="sortByAisle()"></span>
+        </button>
+        <button type="button" class="btn btn-success alpha-sort pull-right">
+           <span class="glyphicon glyphicon-sort-by-alphabet"
+                 (click)="sortByName()"></span>
+        </button>
+
     </li>
+
     <li class="list-group-item"
        *ngFor="let item of model; let i=index">
              <span class="glyphicon glyphicon-remove"
@@ -45,6 +51,3 @@
       </div>
    </li>
 </ul>
-<!-- <pre>
-    {{ _itemEntry|json}}
-</pre> -->

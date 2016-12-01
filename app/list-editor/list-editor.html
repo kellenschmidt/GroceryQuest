@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container list-editor-page">
    <ol class="breadcrumb">
       <li>
          <a routerLink="/profile">
@@ -14,6 +14,7 @@
          {{ list.title }}
       </li>
    </ol>
+
    <div class="row">
       <div class="col-md-7">
          <div class="panel panel-info">
@@ -45,29 +46,29 @@
                   </select>
                </div>
                <div>
-                <label for="peak-hours">
-                  Peak hours
-                </label>
-                <div class="dropdown">
-                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="true">{{dayOfWeek}}
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li *ngFor="let day of weekdays"><a (click)="setDayOfWeek(day)">{{day}}</a></li>
-                  </ul>
-                </div>
-                <br>
-                <div class="hour-column hour-bar"
-                 *ngFor="let column of busyness"
-                 [ngStyle]="{height: getColumnHeight(column)}">
-                </div>
-                <br>
-                <div *ngFor="let column of busyness; let i=index"
-                     class="hour-column">
-                     <div *ngIf="i%3 === 0"
-                          class="hour-column-label">{{getColumnLabel(i+1)}}</div>
-                </div>
+                    <label for="peak-hours">
+                      Peak hours
+                    </label>
+                    <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{dayOfWeek}}
+                                <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li *ngFor="let day of weekdays"><a (click)="setDayOfWeek(day)">{{day}}</a></li>
+                          </ul>
+                    </div>
+                    <br>
+                    <div class="hour-column hour-bar"
+                     *ngFor="let column of busyness"
+                     [ngStyle]="{height: getColumnHeight(column)}">
+                    </div>
+                    <br>
+                    <div *ngFor="let column of busyness; let i=index"
+                         class="hour-column">
+                         <div *ngIf="i%3 === 0"
+                              class="hour-column-label">{{getColumnLabel(i+1)}}</div>
+                    </div>
                 </div>
                <div class = "form-group">
                    <label for="store-address">
@@ -82,7 +83,6 @@
                     <sebm-google-map [latitude]="lat" [longitude]="lng" style="height:300px;" [zoom]="zoom">
                         <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
                     </sebm-google-map>
-
                </div>
             </div>
          </div>
@@ -93,13 +93,13 @@
         </item-editor>
       </div>
       <div class="col-md-12">
-          <div *ngIf = "list.items?.length == 0" class = "space">
+          <div *ngIf = "newButton" class = "space">
               <a class="btn btn-success btn-block btn-lg"
                  (click)="addList()">
                  Add List
               </a>
           </div>
-          <div *ngIf = "list.items?.length != 0" class = "space">
+          <div *ngIf = "old" class = "space">
               <a class="btn btn-success btn-block btn-lg"
                  (click)="save()">
                  Save
@@ -121,7 +121,3 @@
       </div>
    </div>
 </div>
-
-<!-- <pre>
-    {{list|json}}
-</pre> -->

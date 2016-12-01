@@ -13,20 +13,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   imports: [
     RouterModule.forRoot([
         { path: '', component: LandingComponent },
-  		  { path: 'lists', component: ListsComponent },
-        { path: 'lists/new', component: ListEditorComponent },
-  		  { path: 'lists/:list_id', component: ListEditorComponent },
         { path: 'login', component: LoginComponent },
         { path: 'signup', component: SignupComponent },
-/*        { path: 'profile/:user_id', component: ProfileComponent, children: [
-          {
-            path: 'lists', component: ListEditorComponent, children: [
-              { path: 'new', component: ListEditorComponent },
-              { path: ':list_id', component: ListEditorComponent },
-            ]
-          },
-          { path: '', component: ProfileComponent },
-        ]},*/
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/lists/new', component: ListEditorComponent },
         { path: 'profile/lists/:list_id', component: ListEditorComponent },

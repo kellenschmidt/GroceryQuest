@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const landing_component_1 = require('./landing/landing.component');
-const lists_component_1 = require('./lists/lists.component');
 const list_editor_component_1 = require('./list-editor/list-editor.component');
 const login_component_1 = require('./login/login.component');
 const signup_component_1 = require('./signup/signup.component');
@@ -24,20 +23,8 @@ AppRoutingModule = __decorate([
         imports: [
             router_1.RouterModule.forRoot([
                 { path: '', component: landing_component_1.LandingComponent },
-                { path: 'lists', component: lists_component_1.ListsComponent },
-                { path: 'lists/new', component: list_editor_component_1.ListEditorComponent },
-                { path: 'lists/:list_id', component: list_editor_component_1.ListEditorComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'signup', component: signup_component_1.SignupComponent },
-                /*        { path: 'profile/:user_id', component: ProfileComponent, children: [
-                          {
-                            path: 'lists', component: ListEditorComponent, children: [
-                              { path: 'new', component: ListEditorComponent },
-                              { path: ':list_id', component: ListEditorComponent },
-                            ]
-                          },
-                          { path: '', component: ProfileComponent },
-                        ]},*/
                 { path: 'profile', component: profile_component_1.ProfileComponent },
                 { path: 'profile/lists/new', component: list_editor_component_1.ListEditorComponent },
                 { path: 'profile/lists/:list_id', component: list_editor_component_1.ListEditorComponent },
