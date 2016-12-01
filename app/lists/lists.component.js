@@ -17,15 +17,12 @@ let ListsComponent = class ListsComponent {
         this.listsService = listsService;
         this.broadcastService = broadcastService;
         this.tokenService = tokenService;
-        this.temp = {};
         this.model = {};
         this.token = this.tokenService.getToken();
         listsService.getListsAPI(this.token).then(x => {
             this.lists = x.lists;
             this.model = this.lists;
-            console.log(this.lists);
         });
-        // this.lists = listsService.getLists();
     }
 };
 __decorate([

@@ -33,6 +33,8 @@ let ListEditorComponent = class ListEditorComponent {
         this.zoom = 15;
         this.maxBusyness = 0;
         this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        this.newButton = false;
+        this.old = false;
         this.token = this.tokenService.getToken();
         this.listsService.getStoresAPI().then(x => {
             this.stores = x;
@@ -41,6 +43,7 @@ let ListEditorComponent = class ListEditorComponent {
     ngOnInit() {
         this.route.params.forEach((params) => {
             if (params['list_id'] !== undefined) {
+                this.old = true;
                 this.route.params.forEach((params) => {
                     this.listsService.getListAPI(this.token, +params['list_id']).then(x => {
                         this.list = x;
@@ -50,7 +53,6 @@ let ListEditorComponent = class ListEditorComponent {
                             this.setMaxBusyness();
                             let d = new Date();
                             this.setDayOfWeek(this.weekdays[d.getDay()]);
-                            console.log(this.indivStore);
                             this.listsService.getMap(this.indivStore.address).then(x => {
                                 this.lat = x.results[0].geometry.location.lat;
                                 this.lng = x.results[0].geometry.location.lng;
@@ -60,6 +62,7 @@ let ListEditorComponent = class ListEditorComponent {
                 });
             }
             else {
+                this.newButton = true;
                 this.list = {
                     items: []
                 };
@@ -96,18 +99,11 @@ let ListEditorComponent = class ListEditorComponent {
             return (index).toString() + "a";
         return (index % 12).toString() + "p";
     }
-    // ngAfterContentChecked() {
-    //     this.store_id = $("#store_id").val();
-    //     console.log(this.store_id)
-    //     // this.listsService.getStore(this.store_id).then(x => {
-    //     //     this.indivStore = x;
-    //     // });
-    // }
     addList() {
-        console.log({ token: this.token, store_id: this.list.store_id, title: this.list.title });
+        this.old = true;
+        this.newButton = false;
         this.listsService.addList(this.token, this.list.store_id, this.list.title).then(x => {
             this.list.list_id = x.list_id;
-            console.log(this.list);
         });
     }
     sleep(ms) {
@@ -115,13 +111,16 @@ let ListEditorComponent = class ListEditorComponent {
     }
     save() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.broadcastService.broadcast('saveGroceryList', this.list);
-            console.log(this.list);
-            // how to wait for this to return to navigate
-            this.listsService.saveList(this.token, this.list);
-            yield this.sleep(250);
-            this.router.navigateByUrl('profile');
-            // this.router.navigate(['../../'], { relativeTo: this.route });
+            if (this.list.items.length === 0) {
+                alert("Add item(s) to save your list!");
+            }
+            else {
+                this.broadcastService.broadcast('saveGroceryList', this.list);
+                // how to wait for this to return to navigate
+                this.listsService.saveList(this.token, this.list);
+                yield this.sleep(250);
+                this.router.navigateByUrl('profile');
+            }
         });
     }
     delete() {
@@ -138,7 +137,6 @@ let ListEditorComponent = class ListEditorComponent {
             this.setMaxBusyness();
             let d = new Date();
             this.setDayOfWeek(this.weekdays[d.getDay()]);
-            console.log(this.indivStore);
             this.listsService.getMap(this.indivStore.address).then(x => {
                 this.lat = x.results[0].geometry.location.lat;
                 this.lng = x.results[0].geometry.location.lng;

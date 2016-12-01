@@ -21,7 +21,6 @@ let ProfileComponent = class ProfileComponent {
         this.tokenService = tokenService;
         this.listsService = listsService;
         this.profile = {};
-        this.temp = {};
         this.numItems = 0;
         this.price = 0;
     }
@@ -31,25 +30,14 @@ let ProfileComponent = class ProfileComponent {
         for (var i = 1; i < 365; i++) {
             this.days.push(i);
         }
-        // this.route.params.forEach((params: Params) => {
-        // 'profile/:user_id'
-        // if(params['user_id'] !== undefined) {
-        // if(this.profile == {}) {
         this.profileService.getProfileAPI(this.token).then(x => {
             this.profile = x;
-            console.log(this.profile);
         });
         this.listsService.getListsAPI(this.token).then(x => {
             this.lists = x.lists;
             this.countItems();
             this.countPrice();
         });
-        // }
-        // this.profile = this.profileService.getProfile(params['user_id']);
-        // } else {
-        // this.profile = {};
-        // }
-        // });
     }
     countItems() {
         for (this.i = 0; this.i < this.lists.length; this.i++) {

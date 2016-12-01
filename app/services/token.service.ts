@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { contentHeaders } from '../common/headers';
-import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,11 +10,10 @@ export class TokenService {
     _apiUrl: string = "https://groceryquest.party/api"
 
     response: any;
-    code: any;
     token: string;
 
 
-    constructor(private http: Http, public router: Router) {}
+    constructor(private http: Http) {}
 
     createAuthorizationHeader(headers:Headers, username, password) {
         headers.append('Authorization', 'Basic ' +
@@ -44,10 +41,6 @@ export class TokenService {
 
     getToken() : string {
         return this.token;
-    }
-
-    resetToken() : void {
-        this.token = "";
     }
 
 }

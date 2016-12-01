@@ -1,6 +1,6 @@
 #list-title {
-	display: inline-block;
-	margin-bottom: 0px;
+	display: inline;
+	padding-bottom: 10px;
 	font-size: 14px;
 }
 
@@ -8,10 +8,10 @@
     padding: 6.25px 12px;
 }
 
-
 .list-group-item-info {
     background-color: #e7fff8;
     color: #168865;
+	height: 50px;
 }
 
 input[id="autocomplete-input"]:focus {
@@ -19,14 +19,9 @@ input[id="autocomplete-input"]:focus {
 
 }
 
-
 .glyphicon-sort-by-alphabet,
 .glyphicon-sort-by-attributes {
-	font-size: 17px;
-}
-
-.glyphicon-sort-by-attributes {
-	margin-left: 7px;
+	font-size: 14px;
 }
 
 .btn.dropdown-toggle {
@@ -36,4 +31,12 @@ input[id="autocomplete-input"]:focus {
 .location {
 	display: inline;
 	color: grey;
+}
+
+input[id="autocomplete-input"] {
+	font-size: 12px;
+}
+
+.glyphicon-remove, .glyphicon-menu-up, .glyphicon-menu-down {
+	cursor: pointer;
 }

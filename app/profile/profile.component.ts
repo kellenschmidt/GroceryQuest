@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from './../services/profile.service';
 import { TokenService } from './../services/token.service';
 import { ListsService } from './../services/lists.service';
@@ -16,7 +16,6 @@ export class ProfileComponent {
   profile : any = {};
   days: number[];
   token: string;
-  temp: any = {};
   lists: any[];
   i : number;
   j : number;
@@ -37,28 +36,20 @@ export class ProfileComponent {
       this.days.push(i);
     }
 
-    // this.route.params.forEach((params: Params) => {
-      // 'profile/:user_id'
-			// if(params['user_id'] !== undefined) {
-            // if(this.profile == {}) {
-                this.profileService.getProfileAPI(this.token).then(
-                x => {
-                    this.profile = x;
-                    console.log(this.profile);
-                });
 
-                this.listsService.getListsAPI(this.token).then(x => {
-        			this.lists = x.lists;
-                    this.countItems();
-                    this.countPrice();
-        		});
+    this.profileService.getProfileAPI(this.token).then(
+        x => {
+            this.profile = x;
+        });
 
-            // }
-				// this.profile = this.profileService.getProfile(params['user_id']);
-			// } else {
-				// this.profile = {};
-			// }
-		// });
+    this.listsService.getListsAPI(this.token).then(
+        x => {
+            this.lists = x.lists;
+            this.countItems();
+            this.countPrice();
+        });
+
+
   }
 
 
@@ -79,19 +70,19 @@ export class ProfileComponent {
 
 
   isInHeatmap(dayNum: number) : number {
-    let arrayIndex: number = this.profile.heatmap.indexOf(dayNum);
-    if(arrayIndex === -1) {
-      return 0;
-    }
-    return arrayIndex;
+      let arrayIndex: number = this.profile.heatmap.indexOf(dayNum);
+      if(arrayIndex === -1) {
+          return 0;
+      }
+      return arrayIndex;
   }
 
 
   setHeatSquareStyle(dayNum: number) {
-    if(this.isInHeatmap(dayNum))
-      return "#168865";
-    else
-      return "#dbdbdb";
+      if(this.isInHeatmap(dayNum))
+        return "#168865";
+      else
+        return "#dbdbdb";
   }
 
 }

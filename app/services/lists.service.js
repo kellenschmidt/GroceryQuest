@@ -17,24 +17,15 @@ let ListsService = class ListsService {
         // _apiUrl: string = "http://138.197.207.203/api"
         this._apiUrl = "https://groceryquest.party/api";
         this._googleUrl = "https://maps.googleapis.com/maps/api/geocode/json";
-        this.stores = [
-            { "store_id": 1, "store_name": "Kroger on Mockingbird" },
-            { "store_id": 2, "store_name": "Tom Thumb on Lovers" },
-            { "store_id": 3, "store_name": "Central Market on Lovers" },
-            { "store_id": 4, "store_name": "Whole Foods on Greenville" },
-        ];
     }
     createAuthorizationHeader(headers, token) {
         headers.append('Authorization', 'Basic ' +
             btoa(`${token}:`));
-        console.log(token);
-        console.log(btoa(`${token}`));
     }
     getListsAPI(token) {
         let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.createAuthorizationHeader(headers, token);
         this.response = this.http.get(this._apiUrl + '/lists', { headers: headers }).toPromise().then(x => x.json());
-        // console.log(this.response)
         return this.response;
     }
     getListAPI(token, list_id) {
@@ -42,9 +33,6 @@ let ListsService = class ListsService {
         this.createAuthorizationHeader(headers, token);
         this.response = this.http.post(this._apiUrl + '/list', { list_id: list_id }, { headers: headers }).toPromise().then(x => x.json());
         return this.response;
-    }
-    getStores() {
-        return this.stores;
     }
     getStoresAPI() {
         let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
@@ -68,19 +56,12 @@ let ListsService = class ListsService {
         let body = JSON.stringify(list);
         this.http.post(this._apiUrl + '/updatelist', body, { headers: headers }).toPromise().then(x => x.json());
         return this.response;
-        // console.log(this.response)
-        // return this.response;
     }
     deleteList(token, list_id) {
         let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.createAuthorizationHeader(headers, token);
         this.http.post(this._apiUrl + '/removelist', { list_id: list_id }, { headers: headers }).toPromise().then(x => x.json());
         return this.response;
-        // console.log(this.response)
-        // return this.response;
-    }
-    getAmountOfItems() {
-        return this.lists.length;
     }
     getAutocomplete(data, store_id) {
         return this.http.get(this._apiUrl + '/autocomplete/' + data + '?store_id=' + store_id)

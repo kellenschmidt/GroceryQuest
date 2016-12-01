@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const http_1 = require('@angular/http');
-const router_1 = require('@angular/router');
 require('rxjs/add/operator/toPromise');
 let TokenService = class TokenService {
-    constructor(http, router) {
+    constructor(http) {
         this.http = http;
-        this.router = router;
         // _apiUrl: string = "http://138.197.207.203/api"
         this._apiUrl = "https://groceryquest.party/api";
     }
@@ -43,13 +41,10 @@ let TokenService = class TokenService {
     getToken() {
         return this.token;
     }
-    resetToken() {
-        this.token = "";
-    }
 };
 TokenService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [http_1.Http, router_1.Router])
+    __metadata('design:paramtypes', [http_1.Http])
 ], TokenService);
 exports.TokenService = TokenService;
 //# sourceMappingURL=token.service.js.map

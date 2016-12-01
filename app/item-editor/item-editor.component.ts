@@ -1,7 +1,4 @@
-
 import { Component, Input } from '@angular/core';
-
-
 import { ListsService } from './../services/lists.service';
 import { TokenService } from '../services/token.service';
 
@@ -30,21 +27,18 @@ export class ItemEditorComponent {
 		this._itemEntry = {};
 	}
 
-	// ngOnInit() {
-	// 	this.sortByPosition();
-	// }
-
 	addItem() {
 		this.listsService.getAutocomplete(this._itemEntry.name, this.store)
 		.then(x =>
 		{
-			this.update = x[0];
-			this.update["position"] = this.model.length + 1;
-			// this.update["item_id"] = this.model[this.model.length - 1]["item_id"] + 1;
-			this.model.push(this.update)
+			if( x.length == 0 ) {
+				alert("You must select from the items dropdown!");
+			} else {
+				this.update = x[0];
+				this.update["position"] = this.model.length + 1;
+				this.model.push(this.update)
+			}
 		});
-		// this._itemEntry.list_id = this.model.length + 1;
-		// this.model.push(this._itemEntry);
 		this._itemEntry = {};
 	}
 
@@ -113,10 +107,7 @@ export class ItemEditorComponent {
 	}
 
 	autoComplete(event) {
-		// TODO fix this
-        // if(event.target.value !== "" && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
-            this.listsService.getAutocomplete(event.target.value, this.store).then(x => this.autocomplete = x);
-        // }
+        this.listsService.getAutocomplete(event.target.value, this.store).then(x => this.autocomplete = x);
     }
 
 }

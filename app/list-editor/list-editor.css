@@ -40,3 +40,10 @@ select[id="store_id"]:focus {
     padding: 4px;
     font-size: 10px;
 }
+
+.list-editor-page {
+    font-family: "DIN Web", "Hiragino Sans GB", STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
+        font-size: 15px;
+        line-height: 1.33333333;
+        color: #040d14;
+}

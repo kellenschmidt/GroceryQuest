@@ -1,4 +1,3 @@
-
 <div class="list-container">
     <div class="lists">
         <ul class="list-group">
@@ -8,7 +7,7 @@
                         <button type="button" class="btn btn-success pull-right">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
-            		</a>
+                    </a>
 
                 </p>
 
@@ -21,8 +20,8 @@
                 </div>
                 <div class = "link">
                     <a routerLink="lists/{{ list.list_id }}" class = "link-text">
-            			{{ list.title }}
-            		</a>
+                        {{ list.title }}
+                    </a>
                     <div class = "store-title">
                         {{ list.store }}
                     </div>
@@ -30,7 +29,7 @@
 
                 </div>
                 <span class="badge badge-success">
-                   {{ list.items.length }}
+                    {{ list.items.length }}
                 </span>
 
             </li>
@@ -43,8 +42,3 @@
 
 
 </div>
-
-
-<!-- <pre>
-    {{temp|json}}
-</pre> -->
